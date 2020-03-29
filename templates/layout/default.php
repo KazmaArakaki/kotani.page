@@ -37,6 +37,10 @@
       'crossorigin' => 'anonymous',
     ]) ?>
 
+    <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css') ?>
+
+    <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css') ?>
+
     <?= $this->element('css/default') ?>
     <?= $this->element('css/header/default') ?>
     <?= $this->element('css/footer/default') ?>
@@ -49,9 +53,7 @@
   <body>
     <?= $this->element('header/default') ?>
 
-    <?= $this->element('navigation/default') ?>
-
-    <?= $this->Flash->render() ?>
+    <?= $this->element('gallery') ?>
 
     <main id="main" class="main">
       <?= $this->Flash->render() ?>
@@ -78,7 +80,11 @@
       'crossorigin' => 'anonymous',
     ]) ?>
 
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js') ?>
+
     <?= $this->element('js/default') ?>
+
+    <?= $this->element('js/gallery') ?>
 
     <?= $this->fetch('script') ?>
   </body>
