@@ -43,8 +43,11 @@
 
     <?= $this->Flash->render() ?>
 
-    <?= $this->fetch('content') ?>
+    <main id="main" class="main">
+      <?= $this->Flash->render() ?>
 
+      <?= $this->fetch('content') ?>
+    </main>
 
     <?= $this->element('footer/default') ?>
 
