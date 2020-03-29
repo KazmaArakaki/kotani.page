@@ -9,10 +9,12 @@ html {
   background-color: #352e23;
   color: #352e23;
 }
+
 body {
   background-color: #fff4e6;
   font-family: "Sawarabi Mincho", serif;
 }
+
 .main {
   padding-top: 3em;
 }
