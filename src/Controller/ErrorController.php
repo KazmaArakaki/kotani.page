@@ -10,16 +10,10 @@ class ErrorController extends AppController {
     $this->loadComponent('RequestHandler');
   }
 
-  public function beforeFilter(EventInterface $event) {
-  }
-
-  public function beforeRender(EventInterface $event) {
+  public function beforeRender(EventInterface $event): void {
     parent::beforeRender($event);
 
     $this->viewBuilder()->setTemplatePath('Error');
-  }
-
-  public function afterFilter(EventInterface $event) {
   }
 }
 

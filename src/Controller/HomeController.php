@@ -8,7 +8,11 @@ class HomeController extends AppController {
     parent::initialize();
   }
 
-  public function index(): void {
+  public function index() {
+  }
+
+  public function access() {
+  }
   }
 }
 
