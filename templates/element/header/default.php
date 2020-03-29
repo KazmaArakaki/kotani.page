@@ -74,6 +74,16 @@
             <?= __('院長あいさつ') ?>
           </a>
         </li>
+
+        <li class="mb-2 mb-md-4">
+          <a href="<?= $this->Url->build([
+            'controller' => 'Questions',
+            'action' => 'index',
+            '#' => 'main',
+          ]) ?>" class="text-reset">
+            <?= __('よくあるご質問') ?>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>
