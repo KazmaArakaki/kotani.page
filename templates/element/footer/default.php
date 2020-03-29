@@ -79,6 +79,16 @@ use Cake\I18n\Time;
             <?= __('よくあるご質問') ?>
           </a>
         </li>
+
+        <li>
+          <a href="<?= $this->Url->build([
+            'controller' => 'Home',
+            'action' => 'gallery',
+            '#' => 'main',
+          ]) ?>" class="text-reset">
+            <?= __('ギャラリー') ?>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>
