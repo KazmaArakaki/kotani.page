@@ -7,6 +7,20 @@
 <div class="container py-4 d-lg-flex">
   <h3>
     <?= __('診療時間') ?>
+
+    <br class="d-none d-lg-inline">
+
+    <a href="<?= $this->Url->build([
+      'controller' => 'Home',
+      'action' => 'access',
+      '#' => 'main',
+    ]) ?>">
+      <small class="badge" style="font-size: 64%;">
+        <?= __('More') ?>
+
+        <i class="fas fa-chevron-right" style="font-size: 64%;"></i>
+      </small>
+    </a>
   </h3>
 
   <p class="ml-4">
@@ -44,6 +58,20 @@
 <div class="container py-4 d-lg-flex">
   <h3>
     <?= __('所在地') ?>
+
+    <br class="d-none d-lg-inline">
+
+    <a href="<?= $this->Url->build([
+      'controller' => 'Home',
+      'action' => 'access',
+      '#' => 'main',
+    ]) ?>">
+      <small class="badge" style="font-size: 64%;">
+        <?= __('More') ?>
+
+        <i class="fas fa-chevron-right" style="font-size: 64%;"></i>
+      </small>
+    </a>
   </h3>
 
   <p class="ml-4">
@@ -57,3 +85,9 @@
     ]) ?>
   </p>
 </div>
+
+<iframe class="google-map d-block w-100 border-0"
+    height="300"
+    sandbox="allow-scripts allow-same-origin"
+    src="https://www.google.com/maps/embed/v1/place?q=日本、大阪府堺市東区大美野１５８−２３+小谷はり灸所&key=AIzaSyAq92LVBH_q56vksTJoxfFtoApIJSlhKT4"></iframe>
+

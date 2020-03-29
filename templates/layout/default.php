@@ -27,9 +27,19 @@
     <meta name="twitter:site" content="@KazmaArakaki">
     <meta name="twitter:creator" content="@KazmaArakaki">
     <link rel="canonical" href="https://kotani.page/">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <?= $this->Html->css('https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap') ?>
+
+    <?= $this->Html->css('https://use.fontawesome.com/releases/v5.10.0/css/all.css') ?>
+
+    <?= $this->Html->css('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', [
+      'integrity' => 'sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh',
+      'crossorigin' => 'anonymous',
+    ]) ?>
+
     <?= $this->element('css/default') ?>
+    <?= $this->element('css/header/default') ?>
+    <?= $this->element('css/footer/default') ?>
     <?= $this->fetch('css') ?>
     <title>
       <?= __('小谷はり灸所') ?>
@@ -52,6 +62,23 @@
     <?= $this->element('footer/default') ?>
 
     <?= $this->fetch('postLink') ?>
+
+    <?= $this->Html->script('https://code.jquery.com/jquery-3.4.1.slim.min.js', [
+      'integrity' => 'sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n',
+      'crossorigin' => 'anonymous',
+    ]) ?>
+
+    <?= $this->Html->script('https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', [
+      'integrity' => 'sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo',
+      'crossorigin' => 'anonymous',
+    ]) ?>
+
+    <?= $this->Html->script('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', [
+      'integrity' => 'sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6',
+      'crossorigin' => 'anonymous',
+    ]) ?>
+
+    <?= $this->element('js/default') ?>
 
     <?= $this->fetch('script') ?>
   </body>
