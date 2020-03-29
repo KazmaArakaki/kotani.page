@@ -1,25 +1,81 @@
 <header class="header">
-    <div class="header-info-container">
-      <h1 class="header-info-title">
+  <div class="container pt-4">
+    <h1 class="pt-4 pb-2 text-center">
+      <a href="<?= $this->Url->build([
+        'controller' => 'Home',
+        'action' => 'index',
+      ]) ?>" class="text-reset">
         <?= __('小谷はり灸所') ?>
-      </h1>
+      </a>
+    </h1>
 
-      <p class="header-info-text">
-        <?= h('072-237-5695') ?>
+    <nav class="py-4 text-right d-lg-flex pr-lg-4 w-lg-50">
+      <ul class="list-unstyled ml-lg-auto">
+        <li class="mb-2 mb-md-4">
+          <a href="<?= $this->Url->build([
+            'controller' => 'Home',
+            'action' => 'access',
+            '#' => 'main',
+          ]) ?>" class="text-reset">
+            <?= __('診療時間') ?>
+          </a>
+        </li>
 
-        <a href="tel:0722375695">
-          <?= h('[TEL]') ?>
-        </a>
-      </p>
+        <li class="mb-2 mb-md-4">
+          <a href="<?= $this->Url->build([
+            'controller' => 'Home',
+            'action' => 'services',
+            '#' => 'main',
+          ]) ?>" class="text-reset">
+            <?= __('診療科目') ?>
+          </a>
+        </li>
 
-      <p class="header-info-text">
-        <?= __('堺市東区大美野 158-23') ?>
+        <li class="mb-2 mb-md-4">
+          <a href="<?= $this->Url->build([
+            'controller' => 'Home',
+            'action' => 'billing',
+            '#' => 'main',
+          ]) ?>" class="text-reset">
+            <?= __('診療費') ?>
+          </a>
+        </li>
 
-        <a href="https://goo.gl/maps/zokENZeg2BzyzTsZ9" target="_blank">
-          <?= h('[MAP]') ?>
-        </a>
-      </p>
-    </div>
+        <li class="mb-2 mb-md-4">
+          <a href="<?= $this->Url->build([
+            'controller' => 'Home',
+            'action' => 'access',
+            '#' => 'main',
+          ]) ?>" class="text-reset">
+            <?= __('所在地') ?>
+
+            <small class="d-block">
+              <?= h('大阪府堺市東区大美野 158-23') ?>
+            </small>
+          </a>
+        </li>
+
+        <li class="mb-2 mb-md-4">
+          <a href="tel:0722375695" class="text-reset">
+            <?= __('お電話での問い合わせ') ?>
+
+            <small class="d-block">
+              <?= h('072-237-5695') ?>
+            </small>
+          </a>
+        </li>
+
+        <li class="mb-2 mb-md-4">
+          <a href="<?= $this->Url->build([
+            'controller' => 'Home',
+            'action' => 'hello',
+            '#' => 'main',
+          ]) ?>" class="text-reset">
+            <?= __('院長あいさつ') ?>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </header>
 
