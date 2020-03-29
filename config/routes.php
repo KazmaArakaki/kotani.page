@@ -25,6 +25,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
   $builder->fallbacks();
 });
 
+$routes->prefix('admin', function (RouteBuilder $builder) {
+  $builder->fallbacks(DashedRoute::class);
+});
+
 $routes->prefix('api', function (RouteBuilder $builder) {
   $builder->setExtensions(['json']);
 
