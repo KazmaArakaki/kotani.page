@@ -11,6 +11,9 @@ class HomeController extends AppController {
   public function index() {
   }
 
+  public function gallery() {
+  }
+
   public function access() {
   }
 
