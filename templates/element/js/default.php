@@ -21,5 +21,20 @@
   window.addEventListener("resize", adjustHeadingsWidth);
   window.addEventListener("load", adjustHeadingsWidth);
 })();
+
+$(() => {
+  const $lightboxes = $(".lightbox");
+
+  $lightboxes.each((index, lightbox) => {
+    $(lightbox).magnificPopup({
+      type: "image",
+      zoom: {
+        enabled: true,
+        duration: 300,
+        easing: "ease-in-out",
+      },
+    });
+  });
+});
 </script>
 

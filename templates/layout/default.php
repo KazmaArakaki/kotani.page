@@ -41,6 +41,8 @@
 
     <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css') ?>
 
+    <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css') ?>
+
     <?= $this->element('css/default') ?>
     <?= $this->element('css/header/default') ?>
     <?= $this->element('css/footer/default') ?>
@@ -81,6 +83,8 @@
     ]) ?>
 
     <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js') ?>
+
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js') ?>
 
     <?= $this->element('js/default') ?>
 
