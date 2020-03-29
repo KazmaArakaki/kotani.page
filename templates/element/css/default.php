@@ -1,4 +1,4 @@
-<style amp-custom>
+<style>
   :root {
     --white: #ffffff;
     --lightGray: #cccccc;
@@ -41,31 +41,6 @@
 
   .header {
     position: relative;
-  }
-
-  .carousel {
-    margin-left: auto;
-  }
-
-  .amp-carousel-button {
-    display: none;
-  }
-
-  .carousel-item {
-    background-position: center;
-    background-size: cover;
-  }
-
-  .carousel-item[data-index="1"] {
-    background-image: url("<?= $this->Url->image('DSC00666.JPG') ?>");
-  }
-
-  .carousel-item[data-index="2"] {
-    background-image: url("<?= $this->Url->image('DSC00668.JPG') ?>");
-  }
-
-  .carousel-item[data-index="3"] {
-    background-image: url("<?= $this->Url->image('DSC00671.JPG') ?>");
   }
 
   .header-info-container {
@@ -143,17 +118,6 @@
     }
   }
 
-  .aside {
-  }
-
-  .aside-share {
-    display: flex;
-  }
-
-  .aside-share amp-social-share {
-    flex: 1;
-  }
-
   .footer {
     padding-bottom: 2rem;
     background-color: var(--darkBrown, #352e23);
@@ -171,14 +135,6 @@
     padding: 1rem;
     color: var(--beige, #fff4e6);
     text-align: center;
-  }
-
-  .footer-copyright-logo {
-    position: relative;
-    display: inline-block;
-    margin-bottom: -2px;
-    width: .8em;
-    height: .8em;
   }
 </style>
 

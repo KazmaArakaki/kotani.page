@@ -45,13 +45,6 @@
 
     <?= $this->fetch('content') ?>
 
-    <aside class="aside">
-      <div class="aside-share">
-        <amp-social-share type="facebook"></amp-social-share>
-        <amp-social-share type="twitter"></amp-social-share>
-        <amp-social-share type="line"></amp-social-share>
-      </div>
-    </aside>
 
     <?= $this->element('footer/default') ?>
 

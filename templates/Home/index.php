@@ -69,13 +69,3 @@
     </div>
   </section>
 
-  <amp-iframe class="google-map"
-      width="300" height="300"
-      sandbox="allow-scripts allow-same-origin"
-      layout="responsive"
-      src="https://www.google.com/maps/embed/v1/place?q=日本、大阪府堺市東区大美野１５８−２３+小谷はり灸所&key=AIzaSyAq92LVBH_q56vksTJoxfFtoApIJSlhKT4">
-    <amp-img layout="fill" placeholder
-        src="https://maps.googleapis.com/maps/api/staticmap?size=600x300&zoom=16&markers=34.530760,135.525895&key=AIzaSyAq92LVBH_q56vksTJoxfFtoApIJSlhKT4"></amp-img>
-  </amp-iframe>
-</main>
-
