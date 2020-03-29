@@ -14,6 +14,9 @@ class HomeController extends AppController {
   public function access() {
   }
 
+  public function billing() {
+  }
+
   public function services() {
   }
 }
