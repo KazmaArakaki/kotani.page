@@ -1,140 +1,58 @@
 <style>
-  :root {
-    --white: #ffffff;
-    --lightGray: #cccccc;
-    --gray: #999999;
-    --darkGray: #666666;
-    --black: #333333;
-    --beige: #fff4e6;
-    --lightBrown: #948a7d;
-    --brown: #635A4E;
-    --darkBrown: #352e23;
-    --tablet: 768px;
-    --mobile-l: 425px;
-    --mobile-m: 375px;
-    --mobile-s: 320px;
+@media (min-width: /* lg */ 992px) {
+  .w-lg-50 {
+    width: 50% !important;
   }
+}
 
-  html {
-    background-color: var(--beige, #fff4e6);
-    color: var(--darkBrown, #352e23);
-    font-size: 4vw;
-    font-weight: 400;
-    font-family: "Sawarabi Mincho", serif;
-  }
+html {
+  background-color: #352e23;
+  color: #352e23;
+}
+body {
+  background-color: #fff4e6;
+  font-family: "Sawarabi Mincho", serif;
+}
+.main {
+  padding-top: 3em;
+}
 
-  body {
-    font-size: 150%;
-  }
+.main h5 {
+  font-size: 4.8vw;
+  font-weight: 600;
+}
 
-  @media (min-width: /* tablet */ 768px) {
-    body {
-      font-size: 32px;
-    }
-  }
+.main p,
+.main li,
+.main label,
+.main input,
+.main textarea {
+  font-size: 4.8vw;
+}
 
-  .container {
-    position: relative;
-    margin: 0 auto;
-    max-width: var(--tablet, 768px);
+@media (min-width: /* md */ 768px) {
+  .main h5,
+  .main p,
+  .main li,
+  .main label,
+  .main input,
+  .main textarea {
+    font-size: 3.2vw;
   }
+}
 
-  .header {
-    position: relative;
+@media (min-width: /* lg */ 992px) {
+  .main h5,
+  .main p,
+  .main li,
+  .main label,
+  .main input,
+  .main textarea {
+    font-size: 24px;
   }
+}
 
-  .header-info-container {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    text-align: right;
-    text-shadow: -2px -2px 4px var(--beige, #fff4e6), 0px -2px 4px var(--beige, #fff4e6), 2px -2px 4px var(--beige, #fff4e6), -2px 0px 4px var(--beige, #fff4e6), 0px 0px 4px var(--beige, #fff4e6), 2px 0px 4px var(--beige, #fff4e6), -2px 2px 4px var(--beige, #fff4e6), 0px 2px 4px var(--beige, #fff4e6), 2px 2px 4px var(--beige, #fff4e6);
-  }
-
-  .header-info-title {
-    margin: 0;
-    font-size: 1.5em;
-  }
-
-  .header-info-text {
-    margin: 0;
-    font-size: 1em;
-  }
-
-  .navigation {
-    background-color: var(--darkBrown, #352e23);
-  }
-
-  .navigation-list {
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-
-  .navigation-item {
-    display: block;
-  }
-
-  .navigation-action {
-    display: block;
-    padding: .5rem 1rem;
-    color: var(--beige, #fff4e6);
-    text-decoration: none;
-    font-size: .8em;
-  }
-
-  @media (min-width: /* tablet */ 768px) {
-    .navigation-action {
-      padding: .5rem;
-    }
-  }
-
-  .main {
-  }
-
-  .main-headline {
-    margin: 1rem 0 1rem;
-    padding: 0 1rem;
-  }
-
-  .main section h1 {
-    margin: 2rem 0 1rem;
-    padding: 0 1rem;
-  }
-
-  .main section p {
-    margin: 1rem 0 1rem;
-    padding: 0 1rem;
-  }
-
-  .google-map {
-    width: 100%;
-    height: 100vw;
-  }
-
-  @media (min-width: /* tablet */ 768px) {
-    .google-map {
-      height: 10rem;
-    }
-  }
-
-  .footer {
-    padding-bottom: 2rem;
-    background-color: var(--darkBrown, #352e23);
-  }
-
-  .footer-contact {
-    display: block;
-    padding: 1rem;
-    color: var(--beige, #fff4e6);
-    text-align: center;
-  }
-
-  .footer-copyright {
-    margin: 0;
-    padding: 1rem;
-    color: var(--beige, #fff4e6);
-    text-align: center;
-  }
+.main .badge {
+}
 </style>
 
