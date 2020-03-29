@@ -31,9 +31,24 @@
     ]) ?>
   </p>
 </div>
+
 <div class="container py-4 d-lg-flex">
   <h3>
     <?= __('診療科目') ?>
+
+    <br class="d-none d-lg-inline">
+
+    <a href="<?= $this->Url->build([
+      'controller' => 'Home',
+      'action' => 'services',
+      '#' => 'main',
+    ]) ?>">
+      <small class="badge" style="font-size: 64%;">
+        <?= __('More') ?>
+
+        <i class="fas fa-chevron-right" style="font-size: 64%;"></i>
+      </small>
+    </a>
   </h3>
 
   <p class="ml-4">
