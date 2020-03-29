@@ -5,7 +5,7 @@ use Cake\I18n\Time;
   <a href="tel:0722375695" class="footer-contact">
     <i class="fas fa-mobile-alt"></i>
 
-    お電話でのお問い合わせ
+    <?= __('お電話での問い合わせ') ?>
   </a>
 
   <div class="container">

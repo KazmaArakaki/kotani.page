@@ -14,11 +14,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:site_name" content="小谷はり灸所">
+    <meta property="og:site_name" content="<?= __('小谷はり灸所') ?>">
     <meta property="og:url" content="https://kotani.page/" />
     <meta property="og:type" content="website">
-    <meta property="og:description" content="小谷はり灸所｜４年間本場・台湾で修行をした女性鍼灸師が中国伝統の痛くない鍼灸治療をいたします。">
-    <meta property="og:title" content="小谷はり灸所">
+    <meta property="og:description" content="<?= __('小谷はり灸所｜４年間本場・台湾で修行をした女性鍼灸師が中国伝統の痛くない鍼灸治療をいたします。') ?>">
+    <meta property="og:title" content="<?= __('小谷はり灸所') ?>">
     <meta property="og:image" content="<?= $this->Url->image('DSC00668.JPG') ?>">
     <meta property="og:image:width" content="1024">
     <meta property="og:image:height" content="768">
@@ -32,7 +32,7 @@
     <?= $this->element('css/default') ?>
     <?= $this->fetch('css') ?>
     <title>
-      小谷はり灸所
+      <?= __('小谷はり灸所') ?>
     </title>
   </head>
 
