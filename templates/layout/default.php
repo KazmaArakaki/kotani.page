@@ -88,8 +88,6 @@
 
     <?= $this->element('js/default') ?>
 
-    <?= $this->element('js/gallery') ?>
-
     <?= $this->fetch('script') ?>
   </body>
 </html>

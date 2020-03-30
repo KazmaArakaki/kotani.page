@@ -85,11 +85,11 @@
   </h3>
 
   <div class="mb-2 ml-4 flex-fill">
-    <a href="<?= $this->Url->image('map.png') ?>" class="lightbox">
+    <a href="<?= $this->Url->image('map.png') ?>" class="d-block lightbox">
       <img src="<?= $this->Url->image('map.png') ?>" class="img-fluid rounded">
     </a>
 
-    <a href="https://goo.gl/maps/Nfm3Zag8DAeRp5ng9" target="_blank">
+    <a href="https://goo.gl/maps/Nfm3Zag8DAeRp5ng9" target="_blank" class="d-block">
       <small>
         <i class="fas fa-external-link-alt"></i>
 
