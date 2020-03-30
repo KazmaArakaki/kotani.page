@@ -45,11 +45,11 @@
 
   <div class="row">
     <div class="col-auto">
-    <a href="<?= $this->Url->build([
-      'prefix' => 'Admin',
-      'controller' => 'Questions',
-      'action' => 'index',
-    ]) ?>" class="btn btn-outline-secondary">
+      <a href="<?= $this->Url->build([
+        'prefix' => 'Admin',
+        'controller' => 'Questions',
+        'action' => 'index',
+      ]) ?>" class="btn btn-outline-secondary">
         <?= __('一覧へ戻る') ?>
       </a>
     </div>
