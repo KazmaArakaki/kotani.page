@@ -39,6 +39,16 @@
 
         <div id="navbar-top" class="collapse navbar-collapse">
           <ul class="navbar-nav">
+            <li class="nav-item <?= $this->request->getParam('controller') === 'Images' ? 'active' : '' ?>">
+              <a href="<?= $this->Url->build([
+                'prefix' => 'Admin',
+                'controller' => 'Images',
+                'action' => 'index',
+              ]) ?>" class="nav-link">
+                <?= __('画像') ?>
+              </a>
+            </li>
+
             <li class="nav-item <?= $this->request->getParam('controller') === 'Questions' ? 'active' : '' ?>">
               <a href="<?= $this->Url->build([
                 'prefix' => 'Admin',
