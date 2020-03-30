@@ -2,23 +2,6 @@
   <?= $this->Form->create($image, ['type' => 'file', 'novalidate' => true]) ?>
     <div class="form-group">
       <label>
-        <?= __('名前') ?>
-      </label>
-
-      <?= $this->Form->text('name', [
-        'class' => implode(' ', [
-          'form-control',
-          $this->Form->isFieldError('name') ? 'is-invalid' : '',
-        ]),
-      ]) ?>
-
-      <div class="invalid-feedback">
-        <?= $this->Form->error('name') ?>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>
         <?= __('ファイル選択') ?>
       </label>
 
@@ -37,6 +20,23 @@
 
       <div class="invalid-feedback">
         <?= $this->Form->error('file') ?>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <?= __('名前') ?>
+      </label>
+
+      <?= $this->Form->text('name', [
+        'class' => implode(' ', [
+          'form-control',
+          $this->Form->isFieldError('name') ? 'is-invalid' : '',
+        ]),
+      ]) ?>
+
+      <div class="invalid-feedback">
+        <?= $this->Form->error('name') ?>
       </div>
     </div>
 
