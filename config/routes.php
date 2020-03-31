@@ -6,6 +6,8 @@ use Cake\Routing\RouteBuilder;
 $routes->setRouteClass(DashedRoute::class);
 
 $routes->scope('/', function (RouteBuilder $builder) {
+  $builder->setExtensions(['xml']);
+
   $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware([
     'httpOnly' => true,
   ]));
@@ -15,6 +17,11 @@ $routes->scope('/', function (RouteBuilder $builder) {
   $builder->connect('/', [
     'controller' => 'Home',
     'action' => 'index',
+  ]);
+
+  $builder->connect('/sitemap', [
+    'controller' => 'Home',
+    'action' => 'sitemap',
   ]);
 
   $builder->connect('/pages/*', [
