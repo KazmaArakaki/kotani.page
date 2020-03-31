@@ -44,8 +44,8 @@
     <?= __('交通手段') ?>
   </h3>
 
-  <ul class="ml-4 pl-0">
-    <li>
+  <ul class="list-unstyled ml-4 pl-0">
+    <li class="mb-4">
       <?= implode('<br>', [
         __('南海電鉄高野線 北野田駅からバスで15分'),
         implode('<br>', [
@@ -61,7 +61,7 @@
       ]) ?>
     </li>
 
-    <li>
+    <li class="mb-4">
       <?= implode('<br>', [
         __('大阪メトロ御堂筋線 なかもず駅からバスで23分'),
         implode('<br>', [
@@ -72,6 +72,18 @@
           vsprintf('<a href="%s" target="_blank"><small><i class="fas fa-external-link-alt"></i>%s</small></a>', [
             'https://goo.gl/maps/TJck5fbPENTDbzPP9',
             __('なかもず駅からの経路をGoogle Mapで見る'),
+          ]),
+        ]),
+      ]) ?>
+    </li>
+
+    <li class="mb-0">
+      <?= implode('<br>', [
+        __('南海バス北野田線 西口園バス停から徒歩2分'),
+        implode('<br>', [
+          vsprintf('<a href="%s" target="_blank"><small><i class="fas fa-external-link-alt"></i>%s</small></a>', [
+            'https://www.navitime.co.jp/diagram/bus/00408777/00067809/0/',
+            __('西口園バス停の時刻表をNAVITIMEで見る'),
           ]),
         ]),
       ]) ?>
