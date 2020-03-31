@@ -50,6 +50,44 @@
     <title>
       <?= __('小谷はり灸所') ?>
     </title>
+
+    <script type="application/ld+json">
+      {
+        "@id": "https://kotani.page/",
+        "@context": "https://schema.org",
+        "@type": "MedicalClinic",
+        "url": "https://kotani.page/",
+        "name": "<?= __('小谷はり灸所') ?>",
+        "description": "<?= __('小谷はり灸所｜４年間本場・台湾で修行をした女性鍼灸師が中国伝統の痛くない鍼灸治療をいたします。') ?>",
+        "telephone": "+810722375695",
+        "priceRange": "<?= __('4000円（初診料 4500円)') ?>",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "JP",
+          "postalCode": "599-8126",
+          "addressRegion": "<?= __('大阪府堺市') ?>",
+          "addressLocality": "<?= __('東区') ?>",
+          "streetAddress": "<?= __('大美野 158-23') ?>"
+        },
+        "hasMap": "https://goo.gl/maps/zokENZeg2BzyzTsZ9",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 34.530760,
+          "longitude": 135.525911
+        },
+        "openingHours": [
+          "Mo,Tu,We,Fr 09:00-12:30",
+          "Mo,Tu,We,Fr 15:00-21:00"
+        ],
+        "currenciesAccepted": "JPY",
+        "paymentAccepted": "Cash",
+        "image": [
+          "https://kotani.page/assets/images/DSC00666.JPG",
+          "https://kotani.page/assets/images/DSC00668.JPG",
+          "https://kotani.page/assets/images/DSC00671.JPG"
+        ]
+      }
+    </script>
   </head>
 
   <body>
