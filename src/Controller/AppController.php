@@ -6,6 +6,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\Log\Log;
+use Cake\Utility\Text;
 
 class AppController extends Controller {
   public function initialize(): void {
@@ -45,9 +46,15 @@ class AppController extends Controller {
   public function beforeRender(EventInterface $event): void {
     parent::beforeRender($event);
 
+    $session = $this->request->getSession();
+
+    if (!$session->check('AccessLog.sessionId')) {
+      $session->write('AccessLog.sessionId', Text::uuid());
+    }
+
     if (!in_array($this->request->getParam('prefix'), ['Admin', 'Api'])) {
       $accessLog = $this->AccessLogs->newEntity([
-        'session_id' => session_id(),
+        'session_id' => $session->read('AccessLog.sessionId'),
         'path' => $this->request->getRequestTarget(),
         'user_agent' => $this->request->getHeaderLine('User-Agent'),
         'ip_address' => !empty($this->request->getEnv('HTTP_X_FORWARDED_FOR')) ? $this->request->getEnv('HTTP_X_FORWARDED_FOR'): '',
