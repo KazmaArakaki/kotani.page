@@ -11,8 +11,9 @@ class AppController extends Controller {
   public function initialize(): void {
     parent::initialize();
 
-    $this->loadComponent('RequestHandler');
+    $this->loadModel('AccessLogs');
 
+    $this->loadComponent('RequestHandler');
     $this->loadComponent('Flash');
   }
 
@@ -39,6 +40,21 @@ class AppController extends Controller {
         'access',
       ],
     ]);
+  }
+
+  public function beforeRender(EventInterface $event): void {
+    parent::beforeRender($event);
+
+    if (!in_array($this->request->getParam('prefix'), ['Admin', 'Api'])) {
+      $accessLog = $this->AccessLogs->newEntity([
+        'session_id' => session_id(),
+        'path' => $this->request->getRequestTarget(),
+        'user_agent' => $this->request->getHeaderLine('User-Agent'),
+        'is_mobile' => $this->request->is(['mobile']),
+      ]);
+
+      $this->AccessLogs->save($accessLog);
+    }
   }
 }
 
