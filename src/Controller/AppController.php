@@ -50,6 +50,7 @@ class AppController extends Controller {
         'session_id' => session_id(),
         'path' => $this->request->getRequestTarget(),
         'user_agent' => $this->request->getHeaderLine('User-Agent'),
+        'ip_address' => !empty($this->request->getEnv('HTTP_X_FORWARDED_FOR')) ? $this->request->getEnv('HTTP_X_FORWARDED_FOR'): '',
         'is_mobile' => $this->request->is(['mobile']),
       ]);
 
