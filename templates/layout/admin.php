@@ -58,6 +58,16 @@
                 <?= __('質問') ?>
               </a>
             </li>
+
+            <li class="nav-item <?= $this->request->getParam('controller') === 'AccessLogs' ? 'active' : '' ?>">
+              <a href="<?= $this->Url->build([
+                'prefix' => 'Admin',
+                'controller' => 'AccessLogs',
+                'action' => 'index',
+              ]) ?>" class="nav-link">
+                <?= __('アクセス') ?>
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
