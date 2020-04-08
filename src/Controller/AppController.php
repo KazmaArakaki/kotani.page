@@ -58,6 +58,7 @@ class AppController extends Controller {
         'path' => $this->request->getRequestTarget(),
         'user_agent' => $this->request->getHeaderLine('User-Agent'),
         'ip_address' => !empty($this->request->getEnv('HTTP_X_FORWARDED_FOR')) ? $this->request->getEnv('HTTP_X_FORWARDED_FOR'): '',
+        'referer' => $this->request->referer(),
         'is_mobile' => $this->request->is(['mobile']),
       ]);
 

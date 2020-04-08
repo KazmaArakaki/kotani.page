@@ -33,7 +33,7 @@ $dayOfMonth = null;
           <div class="form-row">
             <div class="form-group col-sm">
               <label>
-                <?= __('セッションID') ?>
+                <?= __('Session ID') ?>
               </label>
 
               <?= $this->Form->text('session_id', [
@@ -44,7 +44,7 @@ $dayOfMonth = null;
 
             <div class="form-group col-sm">
               <label>
-                <?= __('パス') ?>
+                <?= __('Path') ?>
               </label>
 
               <?= $this->Form->text('path', [
@@ -57,7 +57,7 @@ $dayOfMonth = null;
           <div class="form-row">
             <div class="form-group col-sm">
               <label>
-                <?= __('ユーザーエージェント') ?>
+                <?= __('User Agent') ?>
               </label>
 
               <?= $this->Form->text('user_agent', [
@@ -68,7 +68,7 @@ $dayOfMonth = null;
 
             <div class="form-group col-sm">
               <label>
-                <?= __('IPアドレス') ?>
+                <?= __('IP Address') ?>
               </label>
 
               <?= $this->Form->text('ip_address', [
@@ -81,7 +81,7 @@ $dayOfMonth = null;
           <div class="form-row">
             <div class="form-group col-sm">
               <label>
-                <?= __('日時〜') ?>
+                <?= __('Access Date (from)') ?>
               </label>
 
               <?= $this->Form->date('created_from', [
@@ -92,7 +92,7 @@ $dayOfMonth = null;
 
             <div class="form-group col-sm">
               <label>
-                <?= __('〜日時') ?>
+                <?= __('Access Date (to)') ?>
               </label>
 
               <?= $this->Form->date('created_to', [
@@ -115,7 +115,7 @@ $dayOfMonth = null;
       <div id="tab-content-excludes" class="tab-pane fade">
         <div>
           <label>
-            <?= __('セッションID') ?>
+            <?= __('Session ID') ?>
           </label>
 
           <?php foreach ($accessLogExcludes as $accessLogExclude): ?>
@@ -201,7 +201,7 @@ $dayOfMonth = null;
 
         <div>
           <label>
-            <?= __('ユーザーエージェント') ?>
+            <?= __('User Agent') ?>
           </label>
 
           <?php foreach ($accessLogExcludes as $accessLogExclude): ?>
@@ -287,7 +287,7 @@ $dayOfMonth = null;
 
         <div>
           <label>
-            <?= __('IPアドレス') ?>
+            <?= __('IP Address') ?>
           </label>
 
           <?php foreach ($accessLogExcludes as $accessLogExclude): ?>
@@ -384,11 +384,11 @@ $dayOfMonth = null;
     <thead>
       <tr>
         <th style="width: 128px;">
-          <?= __('日時') ?>
+          <?= __('Datetime') ?>
         </th>
 
         <th>
-          <?= __('Access Log') ?>
+          <?= __('Log Detail') ?>
         </th>
       </tr>
     </thead>
@@ -420,7 +420,7 @@ $dayOfMonth = null;
             </dd>
 
             <dt class="col-sm-2">
-              <?= __('Session Id') ?>
+              <?= __('Session ID') ?>
             </dt>
 
             <dd class="col-sm-10 mb-0">
@@ -441,6 +441,14 @@ $dayOfMonth = null;
 
             <dd class="col-sm-10 mb-0">
               <?= h($accessLog['ip_address']) ?>
+            </dd>
+
+            <dt class="col-sm-2">
+              <?= __('Referer') ?>
+            </dt>
+
+            <dd class="col-sm-10 mb-0">
+              <?= h($accessLog['referer']) ?>
             </dd>
           </dl>
         </td>
