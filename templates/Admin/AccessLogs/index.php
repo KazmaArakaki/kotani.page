@@ -6,95 +6,371 @@ $dayOfMonth = null;
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
-          <a class="nav-link active" href="#">
+          <a href="#tab-content-blank" class="nav-link active" data-toggle="tab">
+            <i class="fas fa-compress-arrows-alt"></i>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#tab-content-filter" class="nav-link" data-toggle="tab">
             <?= __('絞り込み') ?>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#tab-content-excludes" class="nav-link" data-toggle="tab">
+            <?= __('除外対象') ?>
           </a>
         </li>
       </ul>
     </div>
 
-    <div class="card-body">
-      <?= $this->Form->create($form, ['novalidate' => true, 'type' => 'get']) ?>
-        <div class="form-row">
-          <div class="col-sm mb-2">
-            <label>
-              <?= __('セッションID') ?>
-            </label>
+    <div class="card-body tab-content">
+      <div id="tab-content-blank" class="tab-pane fade show active"></div>
 
-            <?= $this->Form->text('session_id', [
-              'placeholder' => __('セッションID'),
-              'class' => 'form-control form-control-sm',
-            ]) ?>
+      <div id="tab-content-filter" class="tab-pane fade">
+        <?= $this->Form->create($form, ['novalidate' => true, 'type' => 'get']) ?>
+          <div class="form-row">
+            <div class="form-group col-sm">
+              <label>
+                <?= __('セッションID') ?>
+              </label>
+
+              <?= $this->Form->text('session_id', [
+                'placeholder' => __('セッションID'),
+                'class' => 'form-control form-control-sm',
+              ]) ?>
+            </div>
+
+            <div class="form-group col-sm">
+              <label>
+                <?= __('パス') ?>
+              </label>
+
+              <?= $this->Form->text('path', [
+                'placeholder' => __('パス'),
+                'class' => 'form-control form-control-sm',
+              ]) ?>
+            </div>
           </div>
 
-          <div class="col-sm mb-2">
-            <label>
-              <?= __('パス') ?>
-            </label>
+          <div class="form-row">
+            <div class="form-group col-sm">
+              <label>
+                <?= __('ユーザーエージェント') ?>
+              </label>
 
-            <?= $this->Form->text('path', [
-              'placeholder' => __('パス'),
-              'class' => 'form-control form-control-sm',
-            ]) ?>
+              <?= $this->Form->text('user_agent', [
+                'placeholder' => __('ユーザーエージェント'),
+                'class' => 'form-control form-control-sm',
+              ]) ?>
+            </div>
+
+            <div class="form-group col-sm">
+              <label>
+                <?= __('IPアドレス') ?>
+              </label>
+
+              <?= $this->Form->text('ip_address', [
+                'placeholder' => __('IPアドレス'),
+                'class' => 'form-control form-control-sm',
+              ]) ?>
+            </div>
           </div>
+
+          <div class="form-row">
+            <div class="form-group col-sm">
+              <label>
+                <?= __('日時〜') ?>
+              </label>
+
+              <?= $this->Form->date('created_from', [
+                'placeholder' => __('Created From'),
+                'class' => 'form-control form-control-sm',
+              ]) ?>
+            </div>
+
+            <div class="form-group col-sm">
+              <label>
+                <?= __('〜日時') ?>
+              </label>
+
+              <?= $this->Form->date('created_to', [
+                'placeholder' => __('Created To'),
+                'class' => 'form-control form-control-sm',
+              ]) ?>
+            </div>
+          </div>
+
+          <div class="form-row justify-content-end">
+            <div class="col-auto">
+              <button class="btn btn-primary btn-sm">
+                <?= __('絞り込む') ?>
+              </button>
+            </div>
+          </div>
+        <?= $this->Form->end() ?>
+      </div>
+
+      <div id="tab-content-excludes" class="tab-pane fade">
+        <div>
+          <label>
+            <?= __('セッションID') ?>
+          </label>
+
+          <?php foreach ($accessLogExcludes as $accessLogExclude): ?>
+          <?php if (empty($accessLogExclude['session_id'])) { continue; } ?>
+          <div class="form-row">
+            <div class="form-group col">
+              <?= $this->Form->text('session_id', [
+                'placeholder' => __('セッションID'),
+                'class' => 'form-control form-control-sm',
+                'value' => $accessLogExclude['session_id'],
+              ]) ?>
+            </div>
+
+            <div class="form-group col-auto">
+              <?php
+              if ($accessLogExclude['is_active']) {
+                echo $this->Form->postLink(__('無効にする'), [
+                  'controller' => 'AccessLogExcludes',
+                  'action' => 'edit',
+                  $accessLogExclude['id'],
+                ], [
+                  'method' => 'put',
+                  'data' => [
+                    'is_active' => false,
+                  ],
+                  'block' => true,
+                  'class' => 'btn btn-sm btn-outline-danger',
+                ]);
+              } else {
+                echo $this->Form->postLink(__('有効にする'), [
+                  'controller' => 'AccessLogExcludes',
+                  'action' => 'edit',
+                  $accessLogExclude['id'],
+                ], [
+                  'method' => 'put',
+                  'data' => [
+                    'is_active' => true,
+                  ],
+                  'block' => true,
+                  'class' => 'btn btn-sm btn-outline-secondary',
+                ]);
+              }
+              ?>
+            </div>
+
+            <div class="form-group col-auto">
+              <?= $this->Form->postLink(__('削除する'), [
+                'controller' => 'AccessLogExcludes',
+                'action' => 'delete',
+                $accessLogExclude['id'],
+              ], [
+                'method' => 'delete',
+                'block' => true,
+                'class' => 'btn btn-sm btn-danger',
+              ]) ?>
+            </div>
+          </div>
+          <?php endforeach; ?>
+
+          <?= $this->Form->create($form, [
+            'url' => [
+              'controller' => 'AccessLogExcludes',
+              'action' => 'create',
+            ],
+            'novalidate' => true,
+          ]) ?>
+            <div class="form-row">
+              <div class="form-group col">
+                <?= $this->Form->text('session_id', [
+                  'placeholder' => __('セッションID'),
+                  'class' => 'form-control form-control-sm',
+                ]) ?>
+              </div>
+
+              <div class="form-group col-auto">
+                <button class="btn btn-sm btn-primary">
+                  <?= __('追加する') ?>
+                </button>
+              </div>
+            </div>
+          <?= $this->Form->end() ?>
         </div>
 
-        <div class="form-row">
-          <div class="col-sm mb-2">
-            <label>
-              <?= __('ユーザーエージェント') ?>
-            </label>
+        <div>
+          <label>
+            <?= __('ユーザーエージェント') ?>
+          </label>
 
-            <?= $this->Form->text('user_agent', [
-              'placeholder' => __('ユーザーエージェント'),
-              'class' => 'form-control form-control-sm',
-            ]) ?>
+          <?php foreach ($accessLogExcludes as $accessLogExclude): ?>
+          <?php if (empty($accessLogExclude['user_agent'])) { continue; } ?>
+          <div class="form-row">
+            <div class="form-group col">
+              <?= $this->Form->text('user_agent', [
+                'placeholder' => __('ユーザーエージェント'),
+                'class' => 'form-control form-control-sm',
+                'value' => $accessLogExclude['user_agent'],
+              ]) ?>
+            </div>
+
+            <div class="form-group col-auto">
+              <?php
+              if ($accessLogExclude['is_active']) {
+                echo $this->Form->postLink(__('無効にする'), [
+                  'controller' => 'AccessLogExcludes',
+                  'action' => 'edit',
+                  $accessLogExclude['id'],
+                ], [
+                  'method' => 'put',
+                  'data' => [
+                    'is_active' => false,
+                  ],
+                  'block' => true,
+                  'class' => 'btn btn-sm btn-outline-danger',
+                ]);
+              } else {
+                echo $this->Form->postLink(__('有効にする'), [
+                  'controller' => 'AccessLogExcludes',
+                  'action' => 'edit',
+                  $accessLogExclude['id'],
+                ], [
+                  'method' => 'put',
+                  'data' => [
+                    'is_active' => true,
+                  ],
+                  'block' => true,
+                  'class' => 'btn btn-sm btn-outline-secondary',
+                ]);
+              }
+              ?>
+            </div>
+
+            <div class="form-group col-auto">
+              <?= $this->Form->postLink(__('削除する'), [
+                'controller' => 'AccessLogExcludes',
+                'action' => 'delete',
+                $accessLogExclude['id'],
+              ], [
+                'method' => 'delete',
+                'block' => true,
+                'class' => 'btn btn-sm btn-danger',
+              ]) ?>
+            </div>
           </div>
+          <?php endforeach; ?>
 
-          <div class="col-sm mb-2">
-            <label>
-              <?= __('IPアドレス') ?>
-            </label>
+          <?= $this->Form->create($form, [
+            'url' => [
+              'controller' => 'AccessLogExcludes',
+              'action' => 'create',
+            ],
+            'novalidate' => true,
+          ]) ?>
+            <div class="form-row">
+              <div class="form-group col">
+                <?= $this->Form->text('user_agent', [
+                  'placeholder' => __('ユーザーエージェント'),
+                  'class' => 'form-control form-control-sm',
+                ]) ?>
+              </div>
 
-            <?= $this->Form->text('ip_address', [
-              'placeholder' => __('IPアドレス'),
-              'class' => 'form-control form-control-sm',
-            ]) ?>
-          </div>
+              <div class="form-group col-auto">
+                <button class="btn btn-sm btn-primary">
+                  <?= __('追加する') ?>
+                </button>
+              </div>
+            </div>
+          <?= $this->Form->end() ?>
         </div>
 
-        <div class="form-row">
-          <div class="col-sm mb-2">
-            <label>
-              <?= __('日時〜') ?>
-            </label>
+        <div>
+          <label>
+            <?= __('IPアドレス') ?>
+          </label>
 
-            <?= $this->Form->date('created_from', [
-              'placeholder' => __('Created From'),
-              'class' => 'form-control form-control-sm',
-            ]) ?>
+          <?php foreach ($accessLogExcludes as $accessLogExclude): ?>
+          <?php if (empty($accessLogExclude['ip_address'])) { continue; } ?>
+          <div class="form-row">
+            <div class="form-group col">
+              <?= $this->Form->text('ip_address', [
+                'placeholder' => __('IPアドレス'),
+                'class' => 'form-control form-control-sm',
+                'value' => $accessLogExclude['ip_address'],
+              ]) ?>
+            </div>
+
+            <div class="form-group col-auto">
+              <?php
+              if ($accessLogExclude['is_active']) {
+                echo $this->Form->postLink(__('無効にする'), [
+                  'controller' => 'AccessLogExcludes',
+                  'action' => 'edit',
+                  $accessLogExclude['id'],
+                ], [
+                  'method' => 'put',
+                  'data' => [
+                    'is_active' => false,
+                  ],
+                  'block' => true,
+                  'class' => 'btn btn-sm btn-outline-danger',
+                ]);
+              } else {
+                echo $this->Form->postLink(__('有効にする'), [
+                  'controller' => 'AccessLogExcludes',
+                  'action' => 'edit',
+                  $accessLogExclude['id'],
+                ], [
+                  'method' => 'put',
+                  'data' => [
+                    'is_active' => true,
+                  ],
+                  'block' => true,
+                  'class' => 'btn btn-sm btn-outline-secondary',
+                ]);
+              }
+              ?>
+            </div>
+
+            <div class="form-group col-auto">
+              <?= $this->Form->postLink(__('削除する'), [
+                'controller' => 'AccessLogExcludes',
+                'action' => 'delete',
+                $accessLogExclude['id'],
+              ], [
+                'method' => 'delete',
+                'block' => true,
+                'class' => 'btn btn-sm btn-danger',
+              ]) ?>
+            </div>
           </div>
+          <?php endforeach; ?>
 
-          <div class="col-sm mb-2">
-            <label>
-              <?= __('〜日時') ?>
-            </label>
+          <?= $this->Form->create($form, [
+            'url' => [
+              'controller' => 'AccessLogExcludes',
+              'action' => 'create',
+            ],
+            'novalidate' => true,
+          ]) ?>
+            <div class="form-row">
+              <div class="form-group col">
+                <?= $this->Form->text('ip_address', [
+                  'placeholder' => __('IPアドレス'),
+                  'class' => 'form-control form-control-sm',
+                ]) ?>
+              </div>
 
-            <?= $this->Form->date('created_to', [
-              'placeholder' => __('Created To'),
-              'class' => 'form-control form-control-sm',
-            ]) ?>
-          </div>
+              <div class="form-group col-auto">
+                <button class="btn btn-sm btn-primary">
+                  <?= __('追加する') ?>
+                </button>
+              </div>
+            </div>
+          <?= $this->Form->end() ?>
         </div>
-
-        <div class="form-row justify-content-end">
-          <div class="col-auto">
-            <button class="btn btn-primary btn-sm">
-              <?= __('絞り込む') ?>
-            </button>
-          </div>
-        </div>
-      <?= $this->Form->end() ?>
+      </div>
     </div>
   </div>
 </div>

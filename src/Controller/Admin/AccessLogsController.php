@@ -9,6 +9,8 @@ use Cake\I18n\Time;
 class AccessLogsController extends AdminController {
   public function initialize(): void {
     parent::initialize();
+
+    $this->loadModel('AccessLogExcludes');
   }
 
   public function index() {
@@ -58,6 +60,49 @@ class AccessLogsController extends AdminController {
       ];
     }
 
+    $accessLogExcludes = $this->AccessLogExcludes->find()
+        ->toList();
+
+    $sessionIdsToExclude = [];
+    $userAgentsToExclude = [];
+    $ipAddressesToExclude = [];
+
+    foreach ($accessLogExcludes as $accessLogExclude) {
+      if (!$accessLogExclude['is_active']) {
+        continue;
+      }
+
+      if (!empty($accessLogExclude['session_id'])) {
+        $sessionIdsToExclude[] = $accessLogExclude['session_id'];
+      }
+
+      if (!empty($accessLogExclude['user_agent'])) {
+        $userAgentsToExclude[] = $accessLogExclude['user_agent'];
+      }
+
+      if (!empty($accessLogExclude['ip_address'])) {
+        $ipAddressesToExclude[] = $accessLogExclude['ip_address'];
+      }
+    }
+
+    if (!empty($sessionIdsToExclude)) {
+      $conditions[] = [
+        'AccessLogs.session_id NOT IN' => $sessionIdsToExclude,
+      ];
+    }
+
+    if (!empty($userAgentsToExclude)) {
+      $conditions[] = [
+        'AccessLogs.user_agent NOT IN' => $userAgentsToExclude,
+      ];
+    }
+
+    if (!empty($ipAddressesToExclude)) {
+      $conditions[] = [
+        'AccessLogs.ip_address NOT IN' => $ipAddressesToExclude,
+      ];
+    }
+
     $accessLogsQuery = $this->AccessLogs->find()
         ->where($conditions)
         ->order(['AccessLogs.created' => 'desc']);
@@ -69,6 +114,7 @@ class AccessLogsController extends AdminController {
     ]);
 
     $this->set(compact([
+      'accessLogExcludes',
       'accessLogs',
       'accessLogsCount',
       'form',
