@@ -18,7 +18,6 @@ return [
     'dir' => 'src',
     'webroot' => 'webroot',
     'wwwRoot' => WWW_ROOT,
-    //'baseUrl' => env('SCRIPT_NAME'),
     'fullBaseUrl' => false,
     'imageBaseUrl' => 'img/',
     'cssBaseUrl' => 'css/',
@@ -35,8 +34,6 @@ return [
   ],
 
   'Asset' => [
-    //'timestamp' => true,
-    // 'cacheTime' => '+1 year'
   ],
 
   'Cache' => [
@@ -82,14 +79,16 @@ return [
     'trace' => true,
   ],
 
+  'Debugger' => [
+    'editor' => 'phpstorm',
+  ],
+
   'EmailTransport' => [
     'default' => [
       'className' => MailTransport::class,
       'host' => 'localhost',
       'port' => 25,
       'timeout' => 30,
-      //'username' => null,
-      //'password' => null,
       'client' => null,
       'tls' => false,
       'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
@@ -100,8 +99,6 @@ return [
     'default' => [
       'transport' => 'default',
       'from' => 'you@localhost',
-      //'charset' => 'utf-8',
-      //'headerCharset' => 'utf-8',
     ],
   ],
 
@@ -111,12 +108,10 @@ return [
       'driver' => Mysql::class,
       'persistent' => false,
       'timezone' => 'UTC',
-      //'encoding' => 'utf8mb4',
       'flags' => [],
       'cacheMetadata' => true,
       'log' => false,
       'quoteIdentifiers' => false,
-      //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
     ],
 
     'test' => [
@@ -124,12 +119,10 @@ return [
       'driver' => Mysql::class,
       'persistent' => false,
       'timezone' => 'UTC',
-      //'encoding' => 'utf8mb4',
       'flags' => [],
       'cacheMetadata' => true,
       'quoteIdentifiers' => false,
       'log' => false,
-      //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
     ],
   ],
 
@@ -142,7 +135,6 @@ return [
       'scopes' => false,
       'levels' => ['notice', 'info', 'debug'],
     ],
-
     'error' => [
       'className' => FileLog::class,
       'path' => LOGS,
@@ -151,7 +143,6 @@ return [
       'scopes' => false,
       'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
     ],
-
     'queries' => [
       'className' => FileLog::class,
       'path' => LOGS,

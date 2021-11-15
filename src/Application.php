@@ -8,6 +8,9 @@ use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
+use Cake\Http\Middleware\BodyParserMiddleware;
+use Cake\Http\Middleware\CsrfProtectionMiddleware;
+use Cake\I18n\Middleware\LocaleSelectorMiddleware;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
@@ -30,7 +33,14 @@ class Application extends BaseApplication {
       ->add(new AssetMiddleware([
         'cacheTime' => Configure::read('Asset.cacheTime'),
       ]))
-      ->add(new RoutingMiddleware($this));
+      ->add(new RoutingMiddleware($this))
+      ->add(new BodyParserMiddleware())
+      // ->add(new CsrfProtectionMiddleware([
+      //   'httponly' => true,
+      // ]))
+      ->add(new LocaleSelectorMiddleware([
+        'ja',
+      ]));
 
     return $middlewareQueue;
   }

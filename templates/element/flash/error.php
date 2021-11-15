@@ -1,10 +1,8 @@
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <?= $message ?>
+<div class="my-2">
+  <div class="alert alert-danger alert-dismissible fade show">
+    <?= h($message) ?>
 
-  <button type="button" class="close" data-dismiss="alert">
-    <span aria-hidden="true">
-      <?= h('×') ?>
-    </span>
-  </button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
 </div>
 

@@ -10,7 +10,7 @@ use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 
 class PagesController extends AppController {
-  public function display(...$path): ?Response {
+  public function display(string ...$path): ?Response {
     if (!$path) {
       return $this->redirect('/');
     }
@@ -40,8 +40,6 @@ class PagesController extends AppController {
 
       throw new NotFoundException();
     }
-
-    return $this->render();
   }
 }
 
