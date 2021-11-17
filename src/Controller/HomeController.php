@@ -10,5 +10,12 @@ class HomeController extends AppController {
 
   public function index() {
   }
+
+  public function healthcheck() {
+    return $this->response
+        ->withStatus(200)
+        ->withType('text')
+        ->withStringBody('OK');
+  }
 }
 

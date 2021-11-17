@@ -12,6 +12,12 @@ $routes->scope('/', function (RouteBuilder $builder) {
       ]);
 
   $builder
+      ->connect('/healthcheck', [
+        'controller' => 'Home',
+        'action' => 'healthcheck',
+      ]);
+
+  $builder
       ->connect('/pages/*', 'Pages::display');
 
   $builder->fallbacks();
