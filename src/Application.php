@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
-use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Http\Middleware\BodyParserMiddleware;
