@@ -14,6 +14,10 @@ class ErrorController extends AppController {
   }
 
   public function beforeFilter(EventInterface $event) {
+    return $this->redirect([
+      'controller' => 'Home',
+      'action' => 'index',
+    ]);
   }
 
   public function beforeRender(EventInterface $event) {
