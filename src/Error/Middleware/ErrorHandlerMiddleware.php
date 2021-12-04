@@ -6,6 +6,7 @@ namespace App\Error\Middleware;
 use Cake\Controller\Exception\MissingActionException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware as CakeErrorHandlerMiddleware;
 use Cake\Http\Exception\MissingControllerException;
+use Cake\Http\Response;
 use Cake\Log\Log;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
