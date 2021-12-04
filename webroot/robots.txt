@@ -1,2 +1,5 @@
 Sitemap: https://kotani.page/sitemap.xml
 
+User-agent: AhrefsBot
+Disallow: /
+
