@@ -11,13 +11,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160052896-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SP3Z1G4GG9"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-160052896-1');
+      function gtag() { dataLayer.push(arguments); }
+
+      gtag("js", new Date());
+
+      gtag("config", "G-SP3Z1G4GG9", {
+        debug_mode: true,
+      });
     </script>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -132,6 +136,21 @@
 
     <?= $this->fetch('postLink') ?>
 
+    <script>
+    window.addEventListener("DOMContentLoaded", (event) => {
+      const telActionList = Array.from(document.querySelectorAll(`a[href="tel:+81722375695"]`));
+
+      for (const telAction of telActionList) {
+        telAction.addEventListener("click", (event) => {
+          const scrollRatio = window.scrollY / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
+
+          gtag("event", "tel_action", {
+            value: Math.ceil(scrollRatio * 100),
+          });
+        });
+      }
+    });
+    </script>
     <?= $this->fetch('script') ?>
   </body>
 </html>
