@@ -94,7 +94,7 @@
         "url": "https://kotani.page/",
         "name": "<?= __('小谷はり灸所') ?>",
         "description": "<?= __('小谷はり灸所｜４年間本場・台湾で修行をした女性鍼灸師が中国伝統の痛くない鍼灸治療をいたします。') ?>",
-        "telephone": "+810722375695",
+        "telephone": "+81722375695",
         "priceRange": "<?= __('4000円（初診料 4500円)') ?>",
         "address": {
           "@type": "PostalAddress",
