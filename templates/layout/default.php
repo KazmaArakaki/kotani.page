@@ -94,12 +94,14 @@
       {
         "@id": "https://kotani.page/",
         "@context": "https://schema.org",
-        "@type": "MedicalClinic",
+        "@type": "MedicalBusiness",
         "url": "https://kotani.page/",
         "name": "<?= __('小谷はり灸所') ?>",
         "description": "<?= __('小谷はり灸所｜４年間本場・台湾で修行をした女性鍼灸師が中国伝統の痛くない鍼灸治療をいたします。') ?>",
-        "telephone": "+81722375695",
-        "priceRange": "<?= __('4000円（初診料 4500円)') ?>",
+        "image": "<?= $this->Url->image('cover.20211027.jpg', [
+          'fullBase' => true,
+        ]) ?>",
+
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "JP",
@@ -108,23 +110,90 @@
           "addressLocality": "<?= __('東区') ?>",
           "streetAddress": "<?= __('大美野 158-23') ?>"
         },
-        "hasMap": "https://goo.gl/maps/zokENZeg2BzyzTsZ9",
+        "logo": "<?= $this->Url->image('logo.png', [
+          'fullBase' => true,
+        ]) ?>",
         "geo": {
           "@type": "GeoCoordinates",
           "latitude": 34.530760,
           "longitude": 135.525911
         },
+        "latitude": 34.530760,
+        "longitude": 135.525911,
+        "hasMap": "https://goo.gl/maps/zokENZeg2BzyzTsZ9",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Monday",
+            "opens": "09:00:00",
+            "closes": "12:30:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Monday",
+            "opens": "15:00:00",
+            "closes": "21:00:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Tuesday",
+            "opens": "09:00:00",
+            "closes": "12:30:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Tuesday",
+            "opens": "15:00:00",
+            "closes": "21:00:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Wednesday",
+            "opens": "09:00:00",
+            "closes": "12:30:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Wednesday",
+            "opens": "15:00:00",
+            "closes": "21:00:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Thursday",
+            "opens": "09:00:00",
+            "closes": "12:30:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Thursday",
+            "opens": "15:00:00",
+            "closes": "21:00:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Friday",
+            "opens": "09:00:00",
+            "closes": "12:30:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Friday",
+            "opens": "15:00:00",
+            "closes": "21:00:00"
+          }
+        ],
+        "smokingAllowed": false,
+
+        "telephone": "+81722375695",
+
         "openingHours": [
           "Mo,Tu,We,Fr 09:00-12:30",
           "Mo,Tu,We,Fr 15:00-21:00"
         ],
+        "priceRange": "4000 - 4500",
         "currenciesAccepted": "JPY",
-        "paymentAccepted": "Cash",
-        "image": [
-          "https://kotani.page/assets/images/DSC00666.JPG",
-          "https://kotani.page/assets/images/DSC00668.JPG",
-          "https://kotani.page/assets/images/DSC00671.JPG"
-        ]
+        "paymentAccepted": "Cash"
       }
     </script>
   </head>
@@ -151,6 +220,7 @@
       }
     });
     </script>
+
     <?= $this->fetch('script') ?>
   </body>
 </html>
