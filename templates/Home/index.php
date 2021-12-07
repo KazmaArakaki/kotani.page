@@ -307,7 +307,7 @@
       <?= __('アクセス') ?>
     </h1>
 
-    <img src="<?= $this->Url->image('map.png') ?>" width="" height="" loading="lazy" class="section-image">
+    <img src="<?= $this->Url->image('map.png') ?>" width="480" height="360" loading="lazy" class="section-image">
 
     <div class="section-content">
       <p>
@@ -493,7 +493,7 @@
     'key=AIzaSyAq92LVBH_q56vksTJoxfFtoApIJSlhKT4',
     'q=小谷はり灸所',
     'zoom=18',
-  ])) ?>" class="embedded-map"></iframe>
+  ])) ?>" loading="lazy" class="embedded-map"></iframe>
 </main>
 
 <footer class="footer">
