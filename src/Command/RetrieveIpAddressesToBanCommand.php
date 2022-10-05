@@ -7,7 +7,7 @@ use App\Exception\Exception as AppException;
 use Cake\Console\Arguments;
 use Cake\Console\Command;
 use Cake\Console\ConsoleIo;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\Log\Log;
 
 class RetrieveIpAddressesToBanCommand extends Command {
@@ -23,7 +23,10 @@ class RetrieveIpAddressesToBanCommand extends Command {
           'ip_address',
         ])
         ->where([
-          ['ban_until_datetime >' => Time::now('UTC')],
+          'OR' => [
+            ['ban_until_datetime IS NULL'],
+            ['ban_until_datetime >' => FrozenTime::now('UTC')],
+          ],
         ])
         ->group([
           'ip_address',
@@ -31,6 +34,7 @@ class RetrieveIpAddressesToBanCommand extends Command {
         ->order([
           'MAX(ban_until_datetime)' => 'desc',
         ])
+        ->all()
         ->reduce(function ($ipAddresses, $invalidAccessLog) {
           return implode('', [
             $ipAddresses,

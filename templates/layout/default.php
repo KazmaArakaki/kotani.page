@@ -20,7 +20,7 @@
       gtag("js", new Date());
 
       gtag("config", "G-SP3Z1G4GG9", {
-        debug_mode: true,
+        // debug_mode: true,
       });
     </script>
     <meta charset="utf-8">

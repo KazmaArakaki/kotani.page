@@ -8,7 +8,7 @@ use Cake\Error\Middleware\ErrorHandlerMiddleware as CakeErrorHandlerMiddleware;
 use Cake\ORM\TableRegistry;
 use Cake\Http\Exception\MissingControllerException;
 use Cake\Http\Response;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\Log\Log;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -58,7 +58,7 @@ class ErrorHandlerMiddleware extends CakeErrorHandlerMiddleware {
             ])
             ->count();
 
-        $invalidAccessLog['ban_until_datetime'] = Time::now('UTC')->addMinutes($invalidAccessLogCount + 1);
+        $invalidAccessLog['ban_until_datetime'] = FrozenTime::now('UTC')->addMinutes($invalidAccessLogCount + 1);
 
         $invalidAccessLogSaved = $invalidAccessLogsTable->save($invalidAccessLog);
 
