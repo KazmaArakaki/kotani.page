@@ -42,7 +42,6 @@
         { path: "issues/og-image-relative-path/index.html", label: "og:image が相対パス", priority: "中" },
         { path: "issues/navitime-link-empty/index.html", label: "NAVITIME リンクが空", priority: "中" },
         { path: "issues/years-in-business-hardcoded/index.html", label: "「２９年目」が固定", priority: "中" },
-        { path: "issues/legacy-server-shutdown/index.html", label: "旧サーバーの停止", priority: "中" },
         { path: "issues/sitemap-lastmod-stale/index.html", label: "sitemap の lastmod", priority: "低" },
       ],
     },

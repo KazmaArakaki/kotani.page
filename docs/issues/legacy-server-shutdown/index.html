@@ -76,7 +76,7 @@
 
 <p class="eyebrow">ISSUE / 移行の後片付け</p>
 <h1>旧サーバーの停止と旧データベースの扱い</h1>
-<p class="flex flex-wrap gap-2"><span class="pill" data-v="中">優先度 中</span> <span class="pill" data-v="open">未対応</span></p>
+<p class="flex flex-wrap gap-2"><span class="pill" data-v="中">優先度 中</span> <span class="pill" data-v="done">完了</span></p>
 
 <h2>概要</h2>
 <p>切り替え後も、旧サイトの PHP サーバーと MySQL はそのまま残る。</p>
@@ -91,6 +91,16 @@
 
 <h2>対応の進め方</h2>
 <ol class="list"><li>切り替えから2週間ほど、新サイトと GAS のヘルスチェックに問題がないことを見届ける</li><li><code>RetrieveIpAddressesToBanCommand</code> の出力を何が使っていたかを確認する（cron、ファイアウォール設定など）</li><li><code>invalid_access_logs</code> を破棄するか保管するかを決める（破棄に寄せるのが自然）</li><li><code>dev.kotani.page</code> の A レコードも旧サーバー（<code>150.95.134.150</code>）を指している。何に使っているかを確かめ、不要ならレコードを消す</li><li>サーバーと DB を停止し、契約を解約する</li></ol>
+
+<h2>対応結果</h2>
+<p>2026-10-22、旧サイトをクローズした。サーバーは <code>docker-compose down</code> で停止した。</p>
+<ul class="list">
+  <li><code>RetrieveIpAddressesToBanCommand</code> の出力を何が使っていたかは確認済み。</li>
+  <li><code>invalid_access_logs</code> の破棄か保管かの扱いは決定済み。</li>
+  <li><code>dev.kotani.page</code> の A レコードは確認して整理済み。</li>
+  <li>サーバーの契約の扱いも済んでいる。</li>
+</ul>
+<p>旧サイトのソースは、リポジトリの <code>master</code> ブランチに残っている。</p>
 
 <h2>関連</h2>
 <ul class="list">
