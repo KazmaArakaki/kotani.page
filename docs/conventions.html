@@ -83,6 +83,7 @@
 
 <h2>構成</h2>
 <ul class="list">
+  <li>新サイトは <code>main</code> ブランチで管理する。同じリポジトリの <code>master</code> は旧サイト（PHP 版）のソースで、参照用に残している。<code>master</code> には変更を加えない。</li>
   <li>ビルド工程を持たない。<code>public/</code> に置いたファイルが、そのまま配信される。</li>
   <li>パッケージマネージャーは pnpm を使う（<code>package.json</code> の <code>packageManager</code> で版を固定）。依存は <code>wrangler</code> だけにする。CSS フレームワークや JavaScript ライブラリをサイトに入れない。</li>
   <li>Node.js は、その時点の LTS を使う。dev container の Node feature は <code>"version": "lts"</code> にしてあり、コンテナを作り直すと最新の LTS が入る。</li>
