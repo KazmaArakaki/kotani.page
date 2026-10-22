@@ -732,7 +732,7 @@
 
   <section id="section-1" class="section" data-section-index="1">
     <div class="section-content">
-      <p>この堺の地で地元の方に安心して来院して頂けるよう、自宅に併設した治療所を開業し、２９年目を迎えました。</p><p>漢方に基づいた「脈」や「舌診」を使って身体の状態を細かく把握し、バランスの取れた治療を提供できるよう、日々邁進しております。</p><p>古来中国から伝承された本格的な鍼灸治療で、患者様の身体の状態を整えることが私の最大の喜びです。</p><p>肩こり、腰痛、神経のお悩みなど痛みを生じる不調から、ホルモンバランスの乱れ、更年期など女性特有のお悩みまで、さまざまなお悩みに対応いたします。</p><p>また、何となく身体の調子が悪いと感じる方もお任せください。</p><p>当院では、幅広いお悩みに対応し、元気な生活が送れるようサポートさせていただきます。</p>
+      <p>この堺の地で地元の方に安心して来院して頂けるよう、自宅に併設した治療所を開業し、<span data-since="1992">３５</span>年目を迎えました。</p><p>漢方に基づいた「脈」や「舌診」を使って身体の状態を細かく把握し、バランスの取れた治療を提供できるよう、日々邁進しております。</p><p>古来中国から伝承された本格的な鍼灸治療で、患者様の身体の状態を整えることが私の最大の喜びです。</p><p>肩こり、腰痛、神経のお悩みなど痛みを生じる不調から、ホルモンバランスの乱れ、更年期など女性特有のお悩みまで、さまざまなお悩みに対応いたします。</p><p>また、何となく身体の調子が悪いと感じる方もお任せください。</p><p>当院では、幅広いお悩みに対応し、元気な生活が送れるようサポートさせていただきます。</p>
     </div>
   </section>
 
@@ -1148,6 +1148,16 @@
     
 
     
+
+    <script>
+    window.addEventListener("DOMContentLoaded", (event) => {
+      for (const element of document.querySelectorAll("[data-since]")) {
+        const years = new Date().getFullYear() - Number(element.dataset.since) + 1;
+
+        element.textContent = String(years).replace(/[0-9]/g, (digit) => String.fromCharCode(digit.charCodeAt(0) + 0xFEE0));
+      }
+    });
+    </script>
 
     <script>
     window.addEventListener("DOMContentLoaded", (event) => {

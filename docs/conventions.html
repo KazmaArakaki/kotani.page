@@ -96,6 +96,7 @@
 <h2>ファイルの書き方</h2>
 <ul class="list">
   <li>CSS と JavaScript は、旧サイトと同じく HTML の中に直接書く。</li>
+  <li>開業からの年数のように年が変わると古くなる数は、<code>&lt;span data-since="1992"&gt;３５&lt;/span&gt;</code> のように開業年を持たせ、表示時に JavaScript で計算する。開業年を 1 年目として数え、全角数字で出す。</li>
   <li>色、フォント、余白は <a href="ui/principles.html">UI の基本方針</a>の値を使う。新しい色を足さない。</li>
   <li>画像を差し替えるときは、ファイル名に日付を入れた新しいファイルを置く（例：<code>cover.20211027.jpg</code>）。同じ名前で上書きすると、ブラウザや CDN のキャッシュに古い画像が残るため。</li>
 </ul>

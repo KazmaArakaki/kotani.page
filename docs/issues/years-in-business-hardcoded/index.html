@@ -76,7 +76,7 @@
 
 <p class="eyebrow">ISSUE / 公開中の情報の誤り</p>
 <h1>導入文の「２９年目」が固定の文字列</h1>
-<p class="flex flex-wrap gap-2"><span class="pill" data-v="中">優先度 中</span> <span class="pill" data-v="open">未対応</span></p>
+<p class="flex flex-wrap gap-2"><span class="pill" data-v="中">優先度 中</span> <span class="pill" data-v="done">完了</span></p>
 
 <h2>概要</h2>
 <p>導入文に「開業し、２９年目を迎えました。」と書かれている。</p>
@@ -91,6 +91,11 @@
 
 <h2>対応の進め方</h2>
 <ol class="list"><li>院に開業年を確認する</li><li>毎年書き換える運用にするか、「1990年代に開業」のように年数を出さない表現にするかを決める（ビルドなしの方針なので、年数の自動計算は JavaScript で表示時に行うことになる）</li></ol>
+
+<h2>対応結果</h2>
+<p>2026-10-22、開発者に確認し、開業年を 1992 年とした。年数は開業年を 1 年目として数える（2026 年は 35 年目）。</p>
+<p>年数は JavaScript で表示時に計算する。導入文の年数を <code>&lt;span data-since="1992"&gt;３５&lt;/span&gt;</code> で囲み、ページの末尾のスクリプトが「今年 − 1992 + 1」を全角数字で書き込む。</p>
+<p>HTML に書いた「３５」は、JavaScript が動かない環境と検索エンジン向けの値になる。年が変わると実際の表示とずれるが、表示する人には正しい年数が出るので、毎年は書き換えない。</p>
 
 <h2>関連</h2>
 <ul class="list">
