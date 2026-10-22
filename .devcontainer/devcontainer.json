@@ -1,0 +1,12 @@
+{
+	"name": "kotani-page",
+	"dockerComposeFile": "compose.yaml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/kotani-page",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts",
+			"pnpmVersion": "latest"
+		}
+	}
+}

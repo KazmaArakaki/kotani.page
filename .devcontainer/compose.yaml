@@ -1,0 +1,35 @@
+services:
+  app:
+    container_name: kotani-page-app
+    image: localhost/kotani-page:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspaces/kotani-page:cached
+      - ~/.claude:/home/vscode/.claude
+      - ~/.claude.json:/home/vscode/.claude.json
+    env_file:
+      - .env
+    command: sleep infinity
+    networks:
+      app-network:
+
+  reverse-proxy:
+    container_name: kotani-page-reverse-proxy
+    image: nginx:alpine
+    volumes:
+      - ./reverse-proxy/etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../docs:/etc/nginx/html
+    environment:
+      - VIRTUAL_HOST=*.kotani.page.localhost
+    depends_on:
+      - app
+    networks:
+      app-network:
+      localhost-proxy-network:
+
+networks:
+  app-network:
+  localhost-proxy-network:
+    external: true

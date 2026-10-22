@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>セッション履歴 | kotani.page docs</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-serif: "Shippori Mincho B1", serif;
+      --font-sans: "Zen Kaku Gothic New", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+      --color-paper: #f7f2e8;
+      --color-paper-deep: #efe7d8;
+      --color-sheet: #fffdf8;
+      --color-ink: #2b2622;
+      --color-ink-soft: #6b6159;
+      --color-rule: #d9cfbe;
+      --color-moxa: #ed7a9e;
+      --color-moxa-deep: #b8466b;
+      --color-ochre: #8a6a1f;
+      --color-pine: #3f5a4c;
+    }
+    @layer base {
+      body {
+        background-color: var(--color-paper);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .17 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        line-height: 1.9;
+      }
+      h1, h2, h3 { font-family: var(--font-serif); }
+      code { font-family: var(--font-mono); font-size: .85em; background: var(--color-paper-deep); padding: .05em .35em; border-radius: .25rem; }
+      a { color: var(--color-moxa-deep); text-underline-offset: 3px; }
+      ::selection { background: #f7c9d8; }
+    }
+    @layer components {
+      .doc { max-width: 52rem; margin: 0 auto; padding: 4.5rem 1.25rem 7rem; }
+      .eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .2em; color: var(--color-moxa-deep); }
+      .doc h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 800; line-height: 1.4; letter-spacing: .06em; margin: .4rem 0 1.25rem; }
+      .doc h2 { font-size: 1.4rem; font-weight: 700; margin: 3.5rem 0 1rem; padding-top: 1.25rem; border-top: 1px solid var(--color-rule); letter-spacing: .04em; }
+      .doc h3 { font-size: 1.08rem; font-weight: 700; margin: 2rem 0 .5rem; }
+      .doc p { margin: .75rem 0; }
+      .doc ul.list { list-style: disc; padding-left: 1.4rem; margin: .75rem 0; }
+      .doc ol.list { list-style: decimal; padding-left: 1.6rem; margin: .75rem 0; }
+      .doc .list li { margin: .3rem 0; }
+      .lead { font-size: 1.04rem; color: var(--color-ink-soft); }
+      .tbl-wrap { overflow-x: auto; margin: 1rem 0; }
+      .tbl { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.7; }
+      .tbl th { text-align: left; font-weight: 500; font-size: .76rem; letter-spacing: .05em; color: var(--color-ink-soft); border-bottom: 1.5px solid var(--color-ink); padding: .45rem .6rem; white-space: nowrap; }
+      .tbl td { border-bottom: 1px solid var(--color-rule); padding: .6rem; vertical-align: top; }
+      .card { background: var(--color-sheet); border: 1px solid var(--color-rule); border-radius: .6rem; padding: 1.1rem 1.25rem; }
+      .pill { display: inline-flex; align-items: center; gap: .35rem; font-family: var(--font-mono); font-size: .72rem; line-height: 1.6; padding: 0 .55rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+      .pill[data-v="planning"], .pill[data-v="中"] { color: var(--color-ochre); }
+      .pill[data-v="developing"], .pill[data-v="高"] { color: var(--color-moxa-deep); }
+      .pill[data-v="done"] { color: var(--color-pine); }
+      .pill[data-v="低"], .pill[data-v="open"] { color: var(--color-ink-soft); }
+      pre.code { background: var(--color-ink); color: #f3ece0; padding: 1rem 1.2rem; border-radius: .5rem; overflow-x: auto; font-family: var(--font-mono); font-size: .8rem; line-height: 1.75; margin: 1rem 0; }
+      pre.code code { background: none; padding: 0; color: inherit; font-size: inherit; }
+      .next { border-left: 4px solid var(--color-moxa); background: var(--color-sheet); padding: .9rem 1.1rem; border-radius: 0 .5rem .5rem 0; margin: 1.5rem 0; }
+      .next b { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .15em; color: var(--color-moxa-deep); display: block; }
+      .dialog { margin: .6rem 0; padding-left: 1rem; border-left: 2px solid var(--color-rule); font-size: .92rem; }
+      .dialog dt { font-size: .74rem; color: var(--color-ink-soft); margin-top: .4rem; }
+      .dialog dd { margin: 0; }
+      .frame { border: 1px solid var(--color-rule); border-radius: .5rem; background: #fff; display: block; }
+    }
+  </style>
+</head>
+<body>
+<div class="lg:pl-[17rem]">
+<main class="doc">
+
+<p class="eyebrow">SESSIONS</p>
+<h1>セッション履歴</h1>
+<p class="lead">開発の区切りごとに、何を決めて何を作ったか。新しいものが上。</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>日時</th><th>セッション</th><th>機能</th><th>状態</th></tr></thead><tbody><tr><td>2026-10-22 00:17</td><td><a href="../features/homepage/sessions/20261022-0017-migrate-to-workers/index.html">PHP から Workers へ移行する</a><br><span class="text-sm text-(--color-ink-soft)">CakePHP と MySQL をやめ、Workers の Static Assets で同じページを配信する。内容の誤りは直さず課題に回した。</span></td><td><a href="../features/homepage/index.html">トップページ配信</a></td><td><span class="pill" data-v="done">done</span></td></tr></tbody></table></div>
+
+</main>
+</div>
+<script src="../sidebar.js" defer></script>
+</body>
+</html>

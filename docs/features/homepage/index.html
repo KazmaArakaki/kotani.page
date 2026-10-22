@@ -1,0 +1,1826 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>トップページ配信 | kotani.page docs</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-serif: "Shippori Mincho B1", serif;
+      --font-sans: "Zen Kaku Gothic New", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+      --color-paper: #f7f2e8;
+      --color-paper-deep: #efe7d8;
+      --color-sheet: #fffdf8;
+      --color-ink: #2b2622;
+      --color-ink-soft: #6b6159;
+      --color-rule: #d9cfbe;
+      --color-moxa: #ed7a9e;
+      --color-moxa-deep: #b8466b;
+      --color-ochre: #8a6a1f;
+      --color-pine: #3f5a4c;
+    }
+    @layer base {
+      body {
+        background-color: var(--color-paper);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .17 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        line-height: 1.9;
+      }
+      h1, h2, h3 { font-family: var(--font-serif); }
+      code { font-family: var(--font-mono); font-size: .85em; background: var(--color-paper-deep); padding: .05em .35em; border-radius: .25rem; }
+      a { color: var(--color-moxa-deep); text-underline-offset: 3px; }
+      ::selection { background: #f7c9d8; }
+    }
+    @layer components {
+      .doc { max-width: 52rem; margin: 0 auto; padding: 4.5rem 1.25rem 7rem; }
+      .eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .2em; color: var(--color-moxa-deep); }
+      .doc h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 800; line-height: 1.4; letter-spacing: .06em; margin: .4rem 0 1.25rem; }
+      .doc h2 { font-size: 1.4rem; font-weight: 700; margin: 3.5rem 0 1rem; padding-top: 1.25rem; border-top: 1px solid var(--color-rule); letter-spacing: .04em; }
+      .doc h3 { font-size: 1.08rem; font-weight: 700; margin: 2rem 0 .5rem; }
+      .doc p { margin: .75rem 0; }
+      .doc ul.list { list-style: disc; padding-left: 1.4rem; margin: .75rem 0; }
+      .doc ol.list { list-style: decimal; padding-left: 1.6rem; margin: .75rem 0; }
+      .doc .list li { margin: .3rem 0; }
+      .lead { font-size: 1.04rem; color: var(--color-ink-soft); }
+      .tbl-wrap { overflow-x: auto; margin: 1rem 0; }
+      .tbl { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.7; }
+      .tbl th { text-align: left; font-weight: 500; font-size: .76rem; letter-spacing: .05em; color: var(--color-ink-soft); border-bottom: 1.5px solid var(--color-ink); padding: .45rem .6rem; white-space: nowrap; }
+      .tbl td { border-bottom: 1px solid var(--color-rule); padding: .6rem; vertical-align: top; }
+      .card { background: var(--color-sheet); border: 1px solid var(--color-rule); border-radius: .6rem; padding: 1.1rem 1.25rem; }
+      .pill { display: inline-flex; align-items: center; gap: .35rem; font-family: var(--font-mono); font-size: .72rem; line-height: 1.6; padding: 0 .55rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+      .pill[data-v="planning"], .pill[data-v="中"] { color: var(--color-ochre); }
+      .pill[data-v="developing"], .pill[data-v="高"] { color: var(--color-moxa-deep); }
+      .pill[data-v="done"] { color: var(--color-pine); }
+      .pill[data-v="低"], .pill[data-v="open"] { color: var(--color-ink-soft); }
+      pre.code { background: var(--color-ink); color: #f3ece0; padding: 1rem 1.2rem; border-radius: .5rem; overflow-x: auto; font-family: var(--font-mono); font-size: .8rem; line-height: 1.75; margin: 1rem 0; }
+      pre.code code { background: none; padding: 0; color: inherit; font-size: inherit; }
+      .next { border-left: 4px solid var(--color-moxa); background: var(--color-sheet); padding: .9rem 1.1rem; border-radius: 0 .5rem .5rem 0; margin: 1.5rem 0; }
+      .next b { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .15em; color: var(--color-moxa-deep); display: block; }
+      .dialog { margin: .6rem 0; padding-left: 1rem; border-left: 2px solid var(--color-rule); font-size: .92rem; }
+      .dialog dt { font-size: .74rem; color: var(--color-ink-soft); margin-top: .4rem; }
+      .dialog dd { margin: 0; }
+      .frame { border: 1px solid var(--color-rule); border-radius: .5rem; background: #fff; display: block; }
+    }
+  </style>
+</head>
+<body>
+<div class="lg:pl-[17rem]">
+<main class="doc">
+
+<p class="eyebrow">FEATURE / homepage</p>
+<h1>トップページ配信</h1>
+<p class="lead">
+<a href="../../glossary.html#kyusho">小谷はり灸所</a>を探している人が、場所と診療時間を確かめ、電話をかけるまでの1枚。
+kotani.page が持つ機能はこれだけである。
+</p>
+<p>
+ページの中身は2021年秋に作られてから、ほとんど変わっていない。
+変わったのは載せている土台のほうで、2026年10月に PHP から Cloudflare Workers の <a href="../../glossary.html#static-assets">Static Assets</a> へ移すことにした。
+移行の詳細は<a href="../../features/homepage/sessions/20261022-0017-migrate-to-workers/index.html">セッションのドキュメント</a>にある。
+</p>
+
+<h2>配信の仕組み</h2>
+<div class="card">
+<svg viewBox="0 0 760 330" class="w-full h-auto" role="img" aria-label="新サイトの配信構成" font-family="Zen Kaku Gothic New, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#2b2622"/></marker>
+  </defs>
+  <rect x="10" y="40" width="150" height="70" rx="10" fill="#fffdf8" stroke="#d9cfbe"/>
+  <text x="85" y="70" text-anchor="middle" font-size="15" fill="#2b2622">患者さんの</text>
+  <text x="85" y="92" text-anchor="middle" font-size="15" fill="#2b2622">ブラウザ</text>
+  <rect x="10" y="200" width="150" height="70" rx="10" fill="#fffdf8" stroke="#d9cfbe"/>
+  <text x="85" y="230" text-anchor="middle" font-size="15" fill="#2b2622">GAS の</text>
+  <text x="85" y="252" text-anchor="middle" font-size="15" fill="#2b2622">定期実行</text>
+
+  <rect x="230" y="20" width="510" height="290" rx="14" fill="#efe7d8" stroke="#d9cfbe"/>
+  <text x="250" y="48" font-size="13" fill="#6b6159" font-family="IBM Plex Mono, monospace">Cloudflare / Custom Domain: kotani.page</text>
+  <rect x="260" y="70" width="190" height="210" rx="10" fill="#fffdf8" stroke="#2b2622"/>
+  <text x="355" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="#2b2622">Worker</text>
+  <text x="355" y="122" text-anchor="middle" font-size="13" fill="#6b6159" font-family="IBM Plex Mono, monospace">kotani-page</text>
+  <text x="355" y="160" text-anchor="middle" font-size="13" fill="#2b2622">Static Assets だけ</text>
+  <text x="355" y="182" text-anchor="middle" font-size="13" fill="#2b2622">（コードなし）</text>
+  <text x="355" y="232" text-anchor="middle" font-size="12" fill="#6b6159">見つからなければ</text>
+  <text x="355" y="252" text-anchor="middle" font-size="12" fill="#b8466b">404.html を 404 で返す</text>
+
+  <rect x="500" y="70" width="220" height="210" rx="10" fill="#fffdf8" stroke="#d9cfbe"/>
+  <text x="520" y="98" font-size="13" fill="#6b6159" font-family="IBM Plex Mono, monospace">public/</text>
+  <g font-size="13" fill="#2b2622" font-family="IBM Plex Mono, monospace">
+    <text x="530" y="126">index.html</text>
+    <text x="530" y="150" fill="#b8466b">404.html</text>
+    <text x="530" y="174" fill="#b8466b">healthcheck</text>
+    <text x="530" y="198">img/  pdf/</text>
+    <text x="530" y="222">robots.txt ほか</text>
+    <text x="530" y="246">.well-known/</text>
+  </g>
+
+  <path d="M160 75 H255" stroke="#2b2622" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="168" y="66" font-size="12" fill="#6b6159" font-family="IBM Plex Mono, monospace">GET /</text>
+  <path d="M160 235 H255" stroke="#2b2622" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="168" y="226" font-size="12" fill="#6b6159" font-family="IBM Plex Mono, monospace">GET /healthcheck</text>
+  <path d="M450 175 H495" stroke="#2b2622" stroke-width="1.5" marker-end="url(#ah)"/>
+</svg>
+</div>
+<p>
+Worker はスクリプトを持たず、<code>public/</code> のファイルを返すだけである。
+リクエストに一致するファイルがなければ、<code>404.html</code> を 404 で返す。
+</p>
+
+<h2 id="url">URL と返すもの</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>URL</th><th>返すもの</th><th>備考</th></tr></thead><tbody><tr><td><code>/</code></td><td><code>index.html</code></td><td>院の紹介、診療時間、診療費、アクセス、けんこかわら版</td></tr><tr><td><code>/img/*</code></td><td>画像</td><td>ファイル名に日付を入れて、更新時のキャッシュを避けている</td></tr><tr><td><code>/pdf/*</code></td><td><a href="../../glossary.html#kawaraban">けんこかわら版</a>の PDF</td><td>2018〜2020年の8号</td></tr><tr><td><code>/healthcheck</code></td><td><code>OK</code></td><td><a href="../../glossary.html#healthcheck">ヘルスチェック</a>。GAS の定期実行が叩く</td></tr><tr><td><code>/robots.txt</code> <code>/sitemap.xml</code> <code>/favicon.ico</code></td><td>そのまま</td><td>検索エンジン向け</td></tr><tr><td><code>/ads.txt</code> <code>/humans.txt</code> <code>/.well-known/apple-app-site-association</code></td><td>空、またはほぼ空</td><td>旧サイトにあったので残している</td></tr><tr><td>上記以外</td><td><code>404.html</code>（404）</td><td>トップへ戻るボタンだけのページ</td></tr></tbody></table></div>
+
+<h2>ページの構成</h2>
+<p>
+上から順に、院名、導入文、当院の特色、診療科目、メディア紹介、アクセス、診療時間、診療費、けんこかわら版と続き、最後にフッターと地図がある。
+画面の下には電話ボタンが常に浮いていて、どこまで読んだ時点でも電話をかけられる。
+</p>
+<p>
+ページの <code>&lt;head&gt;</code> には<a href="../../glossary.html#jsonld">構造化データ（JSON-LD）</a>があり、検索エンジンに住所や診療時間を伝えている。
+ただし、その診療時間には<a href="../../issues/jsonld-thursday-open/index.html">木曜日が営業日として入っている誤り</a>がある。
+</p>
+
+<h2>関連する画面</h2>
+<ul class="list">
+  <li><a href="../../ui/pages/site/index.html">トップページ</a></li>
+  <li><a href="../../ui/pages/site/404/index.html">404 ページ</a>（移行で新しく作る）</li>
+</ul>
+
+<h2>関連するコンポーネント</h2>
+<div class="grid gap-4 sm:grid-cols-3">
+  <figure class="card"><iframe class="frame w-full" style="height:300px" loading="lazy" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ja&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&amp;display=swap&quot;&gt;&lt;style&gt;body{margin:0;color:#333333;font-family:&quot;Shippori Mincho B1&quot;,serif;background:#fff}h1,h2,h3{margin:0}p{margin:0;line-height:1.6}button{padding:0;height:auto;border:none;background:transparent}&lt;/style&gt;&lt;style&gt;
+.header {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  grid-template-rows: 52px;
+  grid-template-columns: 16px 1fr 52px;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.page-title {
+  grid-column-start: 2;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: 4px;
+}
+
+.toggle-navigation-button {
+  position: relative;
+  box-sizing: content-box;
+  padding: 16px;
+  width: 20px;
+  height: 20px;
+}
+
+.toggle-navigation-button-label {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.navigation-container {
+  position: fixed;
+  z-index: 10;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] {
+}
+
+.navigation-background-layer {
+  position: fixed;
+  width: calc((200vw + 200vh));
+  height: calc((200vw + 200vh));
+  top: calc(50vh - (100vw + 100vh));
+  left: 100vw;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 50%;
+  transition-duration: 0s;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] .navigation-background-layer {
+  left: calc(100vw - (100vw + 100vh));
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] .navigation-background-layer {
+  left: 100vw;
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+.navigation-content {
+  position: fixed;
+  top: 52px;
+  bottom: 0;
+  left: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 24px);
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] .navigation-content {
+  left: 24px;
+  transition-property: left;
+  transition-duration: 0.5s;
+  transition-delay: 0.2s;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] .navigation-content {
+  left: 100vw;
+  transition-property: left;
+  transition-duration: 0.5s;
+  transition-delay: 0s;
+}
+
+.navigation-action-list {
+  flex: 1;
+}
+
+.navigation-action {
+  position: relative;
+  display: block;
+  padding: 16px;
+  background-color: #ffffff;
+  color: #ed7a9e;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: solid 1px rgb(237, 122, 158, 0.25);
+}
+
+.navigation-action::after {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  bottom: 0;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#ed7a9e&quot;&gt;&#x27;,
+    &#x27;  &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: &quot;&quot;;
+}
+
+.navigation-shop-name {
+  margin: 24px 0 16px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.navigation-contact-list {
+  margin: 16px 0;
+  padding: 0 16px;
+}
+
+.navigation-contact {
+  position: relative;
+  display: block;
+  padding-left: 24px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.navigation-contact:not(:first-child) {
+  margin-top: 16px;
+}
+
+.navigation-contact::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: &quot;&quot;;
+}
+
+.navigation-contact[data-icon=&quot;pin&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z&quot;/&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z&quot;/&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.navigation-contact[data-icon=&quot;walk&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.navigation-contact[data-icon=&quot;tel&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.main {
+  margin-top: 52px;
+}
+
+.section {
+  position: relative;
+}
+
+.section[data-section-index=&quot;0&quot;] {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  padding: 24px;
+  min-height: 360px;
+  background-image: url(&lt;?= $this-&gt;Url-&gt;image(&#x27;cover.20211027.jpg&#x27;) ?&gt;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.section[data-section-index=&quot;0&quot;] .section-title {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 4px;
+  text-shadow: 0 0 4px #ffffff;
+}
+
+.section[data-section-index=&quot;1&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;2&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle {
+  position: relative;
+  margin: 32px 0 16px;
+  padding-left: 48px;
+  font-size: 20px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle::before {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  display: block;
+  padding: 20px 4px 4px 20px;
+  background-color: #ed7a9e;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  content: &quot;／3&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle::after {
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  display: block;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(1)::after {
+  content: &quot;1&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(2)::after {
+  content: &quot;2&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(3)::after {
+  content: &quot;3&quot;;
+}
+
+.section[data-section-index=&quot;3&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;3&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;4&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;4&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;4&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;5&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;5&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;5&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;6&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;6&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;6&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;7&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;7&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;7&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;8&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;8&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;8&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section-image {
+  display: block;
+  width: 100%;
+}
+
+.section-gallery {
+  margin-top: 16px;
+  margin-left: calc(((100vw - 100%) * -1) / 2);
+  margin-bottom: 16px;
+  width: 100vw;
+  overflow-x: auto;
+}
+
+.section-gallery-image-list {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.section-gallery-image {
+  display: block;
+  padding: 4px;
+  height: 256px;
+}
+
+.section-category-list {
+  display: grid;
+  grid-template-rows: repeat(3, 120px);
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 8px;
+  grid-column-gap: 8px;
+  margin: 16px 0;
+}
+
+@media (min-width: 480px) {
+  .section-category-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.section-category {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 8px;
+  border: solid 2px #ed7a9e;
+  border-radius: 4px;
+}
+
+.section-category-image {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+}
+
+.section-category-label {
+  color: #ed7a9e;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1;
+}
+
+.section-content p:not(:first-child) {
+  margin-top: 24px;
+}
+
+.embedded-map {
+  display: block;
+  width: 100%;
+  height: 50vh;
+  border: none;
+}
+
+.primary-action-container {
+  position: fixed;
+  right: 0;
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  padding: 16px;
+}
+
+.primary-action {
+  display: block;
+  padding: 12px 0;
+  background-color: #ed7a9e;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 8px;
+  margin: 0 auto;
+  padding: 48px 24px 50vh;
+  background-color: #ed7a9e;
+}
+
+.footer-shop-name {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.footer-information {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  color: #ffffff;
+  text-align: right;
+}
+
+.footer-information a {
+  color: #ffffff;
+  text-decoration: none;
+}
+&lt;/style&gt;
+
+&lt;/head&gt;&lt;body&gt;&lt;header class=&quot;header&quot;&gt;
+  &lt;h1 class=&quot;page-title&quot;&gt;
+    小谷はり灸所
+  &lt;/h1&gt;
+
+  &lt;button id=&quot;toggle-navigation-button&quot; class=&quot;toggle-navigation-button&quot;&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;
+      &lt;path d=&quot;M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z&quot; /&gt;
+
+      &lt;path d=&quot;m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z&quot; /&gt;
+    &lt;/svg&gt;
+
+    &lt;span class=&quot;toggle-navigation-button-label&quot;&gt;
+      メニュー
+    &lt;/span&gt;
+  &lt;/button&gt;
+&lt;/header&gt;
+
+&lt;nav id=&quot;navigation-container&quot; class=&quot;navigation-container&quot; data-state=&quot;shown&quot;&gt;
+  &lt;div class=&quot;navigation-background-layer&quot;&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;navigation-content&quot;&gt;
+    &lt;div class=&quot;navigation-action-list&quot;&gt;
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-0&quot;&gt;
+        トップ
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-2&quot;&gt;
+        当院の特色
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-3&quot;&gt;
+        診療科目
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-4&quot;&gt;
+        メディア紹介
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-5&quot;&gt;
+        アクセス
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-6&quot;&gt;
+        診療時間
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-7&quot;&gt;
+        診療費
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-action&quot; data-target=&quot;#section-8&quot;&gt;
+        けんこかわら版
+      &lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;h2 class=&quot;navigation-shop-name&quot;&gt;
+      小谷はり灸所
+    &lt;/h2&gt;
+
+    &lt;div class=&quot;navigation-contact-list&quot;&gt;
+      &lt;span class=&quot;navigation-contact&quot; data-icon=&quot;pin&quot;&gt;
+        大阪府堺市東区大美野 158-23
+      &lt;/span&gt;
+
+      &lt;span class=&quot;navigation-contact&quot; data-icon=&quot;walk&quot;&gt;
+        南海バス北野田線 西口園バス停から徒歩2分
+      &lt;/span&gt;
+
+      &lt;a href=&quot;tel:+81722375695&quot; class=&quot;navigation-contact&quot; data-icon=&quot;tel&quot;&gt;
+        072-237-5695
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;/body&gt;&lt;/html&gt;" title="ナビゲーション"></iframe>
+  <figcaption class="mt-2 text-sm"><a href="../../ui/components/navigation/index.html">ナビゲーション</a></figcaption></figure>
+  <figure class="card"><iframe class="frame w-full" style="height:300px" loading="lazy" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ja&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&amp;display=swap&quot;&gt;&lt;style&gt;body{margin:0;color:#333333;font-family:&quot;Shippori Mincho B1&quot;,serif;background:#fff}h1,h2,h3{margin:0}p{margin:0;line-height:1.6}button{padding:0;height:auto;border:none;background:transparent}&lt;/style&gt;&lt;style&gt;
+.header {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  grid-template-rows: 52px;
+  grid-template-columns: 16px 1fr 52px;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.page-title {
+  grid-column-start: 2;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: 4px;
+}
+
+.toggle-navigation-button {
+  position: relative;
+  box-sizing: content-box;
+  padding: 16px;
+  width: 20px;
+  height: 20px;
+}
+
+.toggle-navigation-button-label {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.navigation-container {
+  position: fixed;
+  z-index: 10;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] {
+}
+
+.navigation-background-layer {
+  position: fixed;
+  width: calc((200vw + 200vh));
+  height: calc((200vw + 200vh));
+  top: calc(50vh - (100vw + 100vh));
+  left: 100vw;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 50%;
+  transition-duration: 0s;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] .navigation-background-layer {
+  left: calc(100vw - (100vw + 100vh));
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] .navigation-background-layer {
+  left: 100vw;
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+.navigation-content {
+  position: fixed;
+  top: 52px;
+  bottom: 0;
+  left: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 24px);
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] .navigation-content {
+  left: 24px;
+  transition-property: left;
+  transition-duration: 0.5s;
+  transition-delay: 0.2s;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] .navigation-content {
+  left: 100vw;
+  transition-property: left;
+  transition-duration: 0.5s;
+  transition-delay: 0s;
+}
+
+.navigation-action-list {
+  flex: 1;
+}
+
+.navigation-action {
+  position: relative;
+  display: block;
+  padding: 16px;
+  background-color: #ffffff;
+  color: #ed7a9e;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: solid 1px rgb(237, 122, 158, 0.25);
+}
+
+.navigation-action::after {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  bottom: 0;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#ed7a9e&quot;&gt;&#x27;,
+    &#x27;  &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: &quot;&quot;;
+}
+
+.navigation-shop-name {
+  margin: 24px 0 16px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.navigation-contact-list {
+  margin: 16px 0;
+  padding: 0 16px;
+}
+
+.navigation-contact {
+  position: relative;
+  display: block;
+  padding-left: 24px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.navigation-contact:not(:first-child) {
+  margin-top: 16px;
+}
+
+.navigation-contact::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: &quot;&quot;;
+}
+
+.navigation-contact[data-icon=&quot;pin&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z&quot;/&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z&quot;/&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.navigation-contact[data-icon=&quot;walk&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.navigation-contact[data-icon=&quot;tel&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.main {
+  margin-top: 52px;
+}
+
+.section {
+  position: relative;
+}
+
+.section[data-section-index=&quot;0&quot;] {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  padding: 24px;
+  min-height: 360px;
+  background-image: url(&lt;?= $this-&gt;Url-&gt;image(&#x27;cover.20211027.jpg&#x27;) ?&gt;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.section[data-section-index=&quot;0&quot;] .section-title {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 4px;
+  text-shadow: 0 0 4px #ffffff;
+}
+
+.section[data-section-index=&quot;1&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;2&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle {
+  position: relative;
+  margin: 32px 0 16px;
+  padding-left: 48px;
+  font-size: 20px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle::before {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  display: block;
+  padding: 20px 4px 4px 20px;
+  background-color: #ed7a9e;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  content: &quot;／3&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle::after {
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  display: block;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(1)::after {
+  content: &quot;1&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(2)::after {
+  content: &quot;2&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(3)::after {
+  content: &quot;3&quot;;
+}
+
+.section[data-section-index=&quot;3&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;3&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;4&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;4&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;4&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;5&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;5&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;5&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;6&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;6&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;6&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;7&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;7&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;7&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;8&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;8&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;8&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section-image {
+  display: block;
+  width: 100%;
+}
+
+.section-gallery {
+  margin-top: 16px;
+  margin-left: calc(((100vw - 100%) * -1) / 2);
+  margin-bottom: 16px;
+  width: 100vw;
+  overflow-x: auto;
+}
+
+.section-gallery-image-list {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.section-gallery-image {
+  display: block;
+  padding: 4px;
+  height: 256px;
+}
+
+.section-category-list {
+  display: grid;
+  grid-template-rows: repeat(3, 120px);
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 8px;
+  grid-column-gap: 8px;
+  margin: 16px 0;
+}
+
+@media (min-width: 480px) {
+  .section-category-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.section-category {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 8px;
+  border: solid 2px #ed7a9e;
+  border-radius: 4px;
+}
+
+.section-category-image {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+}
+
+.section-category-label {
+  color: #ed7a9e;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1;
+}
+
+.section-content p:not(:first-child) {
+  margin-top: 24px;
+}
+
+.embedded-map {
+  display: block;
+  width: 100%;
+  height: 50vh;
+  border: none;
+}
+
+.primary-action-container {
+  position: fixed;
+  right: 0;
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  padding: 16px;
+}
+
+.primary-action {
+  display: block;
+  padding: 12px 0;
+  background-color: #ed7a9e;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 8px;
+  margin: 0 auto;
+  padding: 48px 24px 50vh;
+  background-color: #ed7a9e;
+}
+
+.footer-shop-name {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.footer-information {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  color: #ffffff;
+  text-align: right;
+}
+
+.footer-information a {
+  color: #ffffff;
+  text-decoration: none;
+}
+&lt;/style&gt;
+
+&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;primary-action-container&quot;&gt;
+    &lt;a href=&quot;tel:+81722375695&quot; class=&quot;primary-action&quot;&gt;
+      &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot;&gt;
+        &lt;path d=&quot;M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z&quot; /&gt;
+      &lt;/svg&gt;
+
+      お気軽にお問合せください
+    &lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;/body&gt;&lt;/html&gt;" title="電話ボタン"></iframe>
+  <figcaption class="mt-2 text-sm"><a href="../../ui/components/primary-action/index.html">電話ボタン</a></figcaption></figure>
+  <figure class="card"><iframe class="frame w-full" style="height:300px" loading="lazy" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ja&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&amp;display=swap&quot;&gt;&lt;style&gt;body{margin:0;color:#333333;font-family:&quot;Shippori Mincho B1&quot;,serif;background:#fff}h1,h2,h3{margin:0}p{margin:0;line-height:1.6}button{padding:0;height:auto;border:none;background:transparent}&lt;/style&gt;&lt;style&gt;
+.header {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  grid-template-rows: 52px;
+  grid-template-columns: 16px 1fr 52px;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.page-title {
+  grid-column-start: 2;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  letter-spacing: 4px;
+}
+
+.toggle-navigation-button {
+  position: relative;
+  box-sizing: content-box;
+  padding: 16px;
+  width: 20px;
+  height: 20px;
+}
+
+.toggle-navigation-button-label {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.navigation-container {
+  position: fixed;
+  z-index: 10;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] {
+}
+
+.navigation-background-layer {
+  position: fixed;
+  width: calc((200vw + 200vh));
+  height: calc((200vw + 200vh));
+  top: calc(50vh - (100vw + 100vh));
+  left: 100vw;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 50%;
+  transition-duration: 0s;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] .navigation-background-layer {
+  left: calc(100vw - (100vw + 100vh));
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] .navigation-background-layer {
+  left: 100vw;
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+.navigation-content {
+  position: fixed;
+  top: 52px;
+  bottom: 0;
+  left: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 24px);
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+.navigation-container[data-state=&quot;shown&quot;] .navigation-content {
+  left: 24px;
+  transition-property: left;
+  transition-duration: 0.5s;
+  transition-delay: 0.2s;
+}
+
+.navigation-container[data-state=&quot;hidden&quot;] .navigation-content {
+  left: 100vw;
+  transition-property: left;
+  transition-duration: 0.5s;
+  transition-delay: 0s;
+}
+
+.navigation-action-list {
+  flex: 1;
+}
+
+.navigation-action {
+  position: relative;
+  display: block;
+  padding: 16px;
+  background-color: #ffffff;
+  color: #ed7a9e;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: solid 1px rgb(237, 122, 158, 0.25);
+}
+
+.navigation-action::after {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  bottom: 0;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#ed7a9e&quot;&gt;&#x27;,
+    &#x27;  &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: &quot;&quot;;
+}
+
+.navigation-shop-name {
+  margin: 24px 0 16px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.navigation-contact-list {
+  margin: 16px 0;
+  padding: 0 16px;
+}
+
+.navigation-contact {
+  position: relative;
+  display: block;
+  padding-left: 24px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.navigation-contact:not(:first-child) {
+  margin-top: 16px;
+}
+
+.navigation-contact::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  content: &quot;&quot;;
+}
+
+.navigation-contact[data-icon=&quot;pin&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z&quot;/&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z&quot;/&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.navigation-contact[data-icon=&quot;walk&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.navigation-contact[data-icon=&quot;tel&quot;]::before {
+  background-image: url(&lt;?= sprintf(&#x27;data:image/svg+xml;charset=utf8,%s&#x27;, rawurlencode(implode(&#x27; &#x27;, [
+    &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;#333333&quot;&gt;&#x27;,
+    &#x27;  &lt;path d=&quot;M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z&quot; /&gt;&#x27;,
+    &#x27;&lt;/svg&gt;&#x27;,
+  ]))) ?&gt;);
+}
+
+.main {
+  margin-top: 52px;
+}
+
+.section {
+  position: relative;
+}
+
+.section[data-section-index=&quot;0&quot;] {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  padding: 24px;
+  min-height: 360px;
+  background-image: url(&lt;?= $this-&gt;Url-&gt;image(&#x27;cover.20211027.jpg&#x27;) ?&gt;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.section[data-section-index=&quot;0&quot;] .section-title {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 4px;
+  text-shadow: 0 0 4px #ffffff;
+}
+
+.section[data-section-index=&quot;1&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;2&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle {
+  position: relative;
+  margin: 32px 0 16px;
+  padding-left: 48px;
+  font-size: 20px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle::before {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  display: block;
+  padding: 20px 4px 4px 20px;
+  background-color: #ed7a9e;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  content: &quot;／3&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle::after {
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  display: block;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(1)::after {
+  content: &quot;1&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(2)::after {
+  content: &quot;2&quot;;
+}
+
+.section[data-section-index=&quot;2&quot;] .section-subtitle:nth-of-type(3)::after {
+  content: &quot;3&quot;;
+}
+
+.section[data-section-index=&quot;3&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;3&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;4&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;4&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;4&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;5&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;5&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;5&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;6&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;6&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;6&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;7&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;7&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;7&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section[data-section-index=&quot;8&quot;] {
+  margin: 0 auto;
+  padding: 24px;
+  max-width: 480px;
+}
+
+.section[data-section-index=&quot;8&quot;] .section-title {
+  font-size: 24px;
+}
+
+.section[data-section-index=&quot;8&quot;] .section-content {
+  margin-top: 16px;
+}
+
+.section-image {
+  display: block;
+  width: 100%;
+}
+
+.section-gallery {
+  margin-top: 16px;
+  margin-left: calc(((100vw - 100%) * -1) / 2);
+  margin-bottom: 16px;
+  width: 100vw;
+  overflow-x: auto;
+}
+
+.section-gallery-image-list {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.section-gallery-image {
+  display: block;
+  padding: 4px;
+  height: 256px;
+}
+
+.section-category-list {
+  display: grid;
+  grid-template-rows: repeat(3, 120px);
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 8px;
+  grid-column-gap: 8px;
+  margin: 16px 0;
+}
+
+@media (min-width: 480px) {
+  .section-category-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.section-category {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 8px;
+  border: solid 2px #ed7a9e;
+  border-radius: 4px;
+}
+
+.section-category-image {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+}
+
+.section-category-label {
+  color: #ed7a9e;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1;
+}
+
+.section-content p:not(:first-child) {
+  margin-top: 24px;
+}
+
+.embedded-map {
+  display: block;
+  width: 100%;
+  height: 50vh;
+  border: none;
+}
+
+.primary-action-container {
+  position: fixed;
+  right: 0;
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  padding: 16px;
+}
+
+.primary-action {
+  display: block;
+  padding: 12px 0;
+  background-color: #ed7a9e;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 8px;
+  margin: 0 auto;
+  padding: 48px 24px 50vh;
+  background-color: #ed7a9e;
+}
+
+.footer-shop-name {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.footer-information {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  color: #ffffff;
+  text-align: right;
+}
+
+.footer-information a {
+  color: #ffffff;
+  text-decoration: none;
+}
+&lt;/style&gt;
+
+&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;section&quot;&gt;&lt;div class=&quot;section-category-list&quot;&gt;&lt;div class=&quot;section-category&quot;&gt;
+        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 218.08 250.27&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+          &lt;path d=&quot;M47.08,115.54c-7.69,8.55-22,1.81-28.36,15-11.87,24.67,10.75,40,29.36,51,6.34,3.57,14.23,10,22,9.49,8.58-.44,15.58-12.94,19.33-19.49,11.33-19.77,24.28-45.44,18.67-69-24,4.83-24.72,46.42-47,54,.84-7.63,7.76-12.76,11.78-19,6.59-10.2,12.67-21.22,20-30.91,7.5-9.95,16.25-16.6,20.22-29.09,4-13,4.38-27-.41-40A58,58,0,0,0,92.08,10.59c-8.22-5.81-17.12-8.8-27-10C33.74-3.95,3.41,19.94.25,51.54-2.44,78.54,16.67,114.89,47.08,115.54Z&quot; /&gt;
+          &lt;path d=&quot;M132.08,86.54h1l11-33,21,4,3-31c6.93.06,18.89,4.69,20-5-5.28-.71-23.15-7.19-27-2.39-5,6.13,2.29,19.8-4.59,25.7-4.74,4.07-13-2.64-18,0-3.19,1.71-3.13,7.64-3.56,10.64C133.52,65.78,132.08,76.21,132.08,86.54Z&quot; /&gt;
+          &lt;path d=&quot;M165.08,62.54c-10.27,4.21-19.61,27.7-22,38l23.43-24.6,17.57,8.6,13-28c6,3.35,16.28,11.22,21,3-4.72-3.2-17.73-14.26-23.79-12.28-11.91,3.89-4.21,29.34-23.21,19.81A20.48,20.48,0,0,1,165.08,62.54Z&quot; /&gt;
+          &lt;path d=&quot;M114.08,103.54c7.28,23.32-10.29,55.59-22.32,75-5.92,9.58-10.09,18.39-22.68,18.55-19.48.23-38.28-21.48-53-31.55l6,84h80c5,0,22.78,2.71,25.41-2.31,3.19-6.08,1.59-16.07,1.59-22.69,0-17.31.47-34.76-1.17-52-.83-7.64-6.57-23.65.17-29.35,8.57-7,39-5.65,47.62,1.08,8.15,6.53,12.67,19.27,17.14,28.27,2.61,5.32,8.22,26.73,16.19,23.8,6.78-2.5,4.05-16.25,3.47-21.8-2.42-17.72,1-46-13.8-59.56-5-4.44-16.15-4.83-22.62-5.85C155.84,106,134.56,103.6,114.08,103.54Z&quot; /&gt;
+        &lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          肩こり
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;div class=&quot;section-category&quot;&gt;
+        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 293.88 224.96&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+          &lt;path d=&quot;M43.88.39c-8.64,1.07-16.8,3.2-24,8.36-39.61,28.37-15.58,93.24,33,88C111.22,90.53,102.33-6.87,43.88.39Z&quot; /&gt;
+          &lt;path d=&quot;M99.88,65c-9.48,22.76-25.66,32.37-48,40,13.87,42.63,51.31,73.24,55,120h99c0-22-2.4-44-13-64-4,3-8.54,8.53-13.24,3.7-8.26-8.48-1.24-19.59-6.46-28.7-10.3-17.7-27.94-31.94-42.3-46,11.71-.93,30.35-6.51,40.87,1,5.78,4.11,4.71,12.8,5.3,19,1.53,16,.83,34.7,5.83,50,8.29-2.59,9.36-13.73,11-21,4.57-18.29,9-36,9-55,0-6.69,1.36-15.6-4.22-20.57-6.59-5.87-21.4-6.06-29.78-6.43-15.56-.8-30.52-1-46,1.61C114.88,60,107.57,63.62,99.88,65Z&quot; /&gt;
+          &lt;path d=&quot;M207.88,141h1l11-33,21,4,3-31c6.93.05,18.89,4.68,20-5-5.28-.71-23.15-7.19-27-2.4-5,6.14,2.29,19.81-4.59,25.7-4.74,4.07-13-2.64-18,0-3.19,1.72-3.13,7.65-3.56,10.65C209.32,120.19,207.88,130.62,207.88,141Z&quot; /&gt;
+          &lt;path d=&quot;M240.88,117c-10.27,4.2-19.61,27.69-22,38l23.43-24.61L259.88,139l13-28c6,3.34,16.28,11.22,21,3-4.72-3.21-17.73-14.27-23.79-12.29-11.91,3.89-4.21,29.35-23.21,19.81A20.45,20.45,0,0,1,240.88,117Z&quot; /&gt;
+        &lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          腰痛
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;div class=&quot;section-category&quot;&gt;
+        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 295.98 234.28&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+          &lt;path d=&quot;M130.34,52.07l22,6c-5.67,2.68-14.06,6.71-16,13l18,7c-3,1.34-19,9.67-14.33,14,3.17,3,14.33.18,18.33-.29,17-2,34-4.34,51-7.71,5.51-1,13.46-4.64,19-3.73,5,.83,9,7,13,10,9,6.76,18.2,8.36,29,5.33,5.8-1.57,12.38-3.51,16.82-7.79,16.68-16.07,8.18-36.78-12.82-41.78,4.32-5.81,11.21-10.48,12.66-18C291.34,5.17,264.94-2.49,247.34.68c-10,1.79-16.57,7.83-21.53,16.39-2.11,3.63-3.17,9.56-6.86,12-3.29,2.13-8.81,1.78-12.61,2.28-9.07,1.19-18,3.1-27,4.72-12.19,2-24,5.34-36,8.37C138.1,45.77,132.08,46.34,130.34,52.07Z&quot; /&gt;
+          &lt;path d=&quot;M39.34,205.07c.82,7,.5,15,4.81,21,12.5,17.15,35.55,4.11,44.75-9a30.78,30.78,0,0,0,4.35-28c-1.41-4.38-5.91-10.32-4.91-15,1.41-5.92,7.66-11.84,10.8-17,8.56-14,17.08-28.26,24.45-43,3.17-6.35,8.74-13.71,7.75-21l-20,9,4-20c-7-1-16,6.5-22,10,.42-3.18,4.82-17,.74-18.54S81.83,86.18,79.77,89.07c-9,12.61-17.43,25.68-25.22,39-3.47,5.8-6.21,13.81-10.84,18.68-4,4.12-12.15,3-17.37,3.94-10,1.88-17,7.38-21.62,16.38-7.47,14.71-8.17,41.35,13.62,43.81C25.78,211.72,32.65,207.67,39.34,205.07Z&quot; /&gt;
+        &lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          捻挫、骨折
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;div class=&quot;section-category&quot;&gt;
+	&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 224.91 253.15&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+	  &lt;path d=&quot;M99.91,69.15h1l11-33,21,4,3-31c6.93.06,18.88,4.68,20-5-5.28-.71-23.15-7.19-27-2.4-5,6.14,2.28,19.81-4.59,25.71-4.74,4.06-13-2.64-18,0-3.19,1.72-3.13,7.65-3.56,10.65C101.35,48.38,99.91,58.81,99.91,69.15Z&quot; /&gt;
+	  &lt;path d=&quot;M132.91,45.15c-10.28,4.21-19.61,27.7-22,38l23.42-24.61,17.58,8.61,13-28c6,3.34,16.28,11.22,21,3-4.72-3.21-17.73-14.27-23.79-12.29-11.91,3.9-4.21,29.35-23.21,19.81A20.32,20.32,0,0,1,132.91,45.15Z&quot; /&gt;
+	  &lt;path d=&quot;M36.91,33.59c-58,9.3-43.33,101.07,14,92.12,8.6-1.34,17.85-4.56,24.62-10.3C111.72,85.16,81.71,26.39,36.91,33.59Z&quot; /&gt;
+	  &lt;path d=&quot;M138.91,161.15h1l11-33,21,4,3-31c6.93.06,18.88,4.68,20-5-5.28-.71-23.15-7.19-27-2.4-5,6.14,2.28,19.81-4.59,25.71-4.74,4.06-13-2.64-18,0-3.19,1.72-3.13,7.65-3.56,10.65C140.35,140.38,138.91,150.81,138.91,161.15Z&quot; /&gt;
+	  &lt;path d=&quot;M21.91,125.15c-5.67,10-9.75,22-12.53,33-3,12.1-10.57,37-2,48,5.28,6.76,11.23,4.71,18.57,5.58,19,2.42,42.81-4.25,61-9.92,8.89-2.66,18.56-4.84,27-8.85,2.29-1.09,7-4,4.92-7.21-3-4.52-17.24-2.6-21.91-2.6-20,0-40,0-59-7v-1c6.94-1.36,14,1,21,2,15.8,1.76,33.18,4.14,49,2.28,4.64-.54,16.82-.59,16.29,6.81-.94,13-21.77,11.49-28.86,17.73-6.21,5.46-6.43,24.42-6.43,32.18,15.55-7.4,26.36-24.93,35.3-39,3.18-5,8.32-13,8.67-19,.31-5.4-5.77-11.83-8.69-16-7.9-11.24-16.28-22.58-25.28-33-3.31-4-7-9.43-12-11.63-6.7-2.94-18.48,8.17-25,10.38C48.2,132.55,35.15,129.32,21.91,125.15Z&quot; /&gt;
+	  &lt;path d=&quot;M171.91,137.15c-10.28,4.21-19.61,27.7-22,38l23.42-24.61,17.58,8.61,13-28c6,3.34,16.28,11.22,21,3-4.72-3.21-17.73-14.27-23.79-12.29-11.91,3.9-4.21,29.35-23.21,19.81A20.32,20.32,0,0,1,171.91,137.15Z&quot; /&gt;
+	  &lt;path d=&quot;M25.91,217.15l-3,36h89l-3-27c-5.44,3.83-11.71,13.8-19,13.71-11.72-.15-2.66-27.71-1-33.71C68.38,210.15,46.91,218.38,25.91,217.15Z&quot; /&gt;
+	&lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          各種痛み
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;div class=&quot;section-category&quot;&gt;
+	&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 272 244.01&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+	  &lt;path d=&quot;M189,82c-16.31-5.59-8-25.77-7.38-38a43.36,43.36,0,0,0-11.24-29.83A42.9,42.9,0,0,0,152,2.23c-21.59-7-45.54,2.86-55,23.78-10,22.12,1.72,52.42,26,59.07,9.21,2.52,20.56,2.52,30,1.52S185,95.45,189,82Z&quot; /&gt;
+	  &lt;path d=&quot;M125,211c-4.09-17-26.81-30.56-26-49l11.45,16L130,207h1c2-14,17-23.71,24.67-35,.71-1,8.68-11.76,9.56-6.71.62,3.71-6.38,10-8.46,12.71-7.92,10.28-20.47,19-20.77,33,20.21-4.8,54.58-28.47,56.8-51,1.12-11.38-6.82-27.69-11.23-38-3.08-7.22-6.35-20.37-12.78-25-9.27-7-28.37-1.38-39.79-3.29-5.08-.71-11-3.71-16-3.09C101,92.44,91,110.56,85.4,120c-6.54,11-15.6,27-15.4,40C70.76,185,101.54,210.81,125,211Z&quot; /&gt;
+	  &lt;path d=&quot;M213,157l-21,32,24.42-19.4L231,179c2.63-4.89,10.27-20.44,16-21,4.23-.61,11,5.35,15,7l2-5c-4-3-16-16.32-21.37-12.93-5.73,3.57-7,16.53-14.16,18.2C224.52,166.2,216.84,158.48,213,157Z&quot; /&gt;
+	  &lt;path d=&quot;M8,169l2,5c3.95-1.65,10.77-7.61,14.91-7,5.82.56,13.46,16.11,16.09,21l14.72-9.4L80,198,59,166c-4,1.5-11.55,9.22-15.62,8.27-7-1.63-8.38-14.69-14-18.2C23.92,152.69,11.87,166,8,169Z&quot; /&gt;
+	  &lt;path d=&quot;M235,196l-9.21-12.17L216,188.73,195,205c6.86-2,22.27-12.84,28.91-10,4.68,2,7.41,9,10.09,13,6.25-3,14.86-12.91,21.73-13.31,7.07-.41,7.27,11.94,16.27,8.31-1.61-4.42-9-21-14.72-20.26C250,183.74,242.56,193.62,235,196Z&quot; /&gt;
+	  &lt;path d=&quot;M0,212c8.93,3.62,9.26-8.74,16.41-8.31C23,204.1,31.82,214.08,38,217c2.68-4,5.41-11,10-13,6.73-2.84,22,8,29,10L56,197.73l-9.79-4.89L37,205c-7.56-2.39-15-12.27-22.28-13.26C8.86,191,1.61,207.59,0,212Z&quot; /&gt;
+	  &lt;path d=&quot;M177,194c-12,9.51-31.29,26-47,19-9.6,11.53-29-3.44-38-9l-3,40h96l-4.83-31Z&quot; /&gt;
+	&lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          生理不良
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;div class=&quot;section-category&quot;&gt;
+	&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 204.02 262.88&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+	  &lt;path d=&quot;M94.91,262.88h4c0-7.33.8-15-1.7-22-9.33-26.21-41.5-32.38-60.3-50C6.37,162-3.36,115.24,9.25,75.88c20.28-63.26,98.32-96,151.66-49.71,32.46,28.23,40.22,64.88,37,105.71-8.16,0-17.23-1.53-25,1.47-13.16,5.07-21.66,15.93-36,18.86-10,2-21.14-7.52-30-4.28-11,4-21.6,29.62-35.71,21.18C52.62,158,61.49,137.39,57.91,120.88h-1c-4,5.76-7.82,11.36-10.21,18-8.82,24.45,12,47.57,37.21,46.64,5.8-.21,13.66-9,18.78-7.31,4.13,1.39,5.8,11,7.22,14.67,8.79-3.5,6-24,6-32,26.62,11.78,39.44-10,62-17.89,5.54-1.9,11.31-.11,17-.11-6.83,21-17.76,39.34-35,53.53-16.39,13.5-41.18,20.47-51.47,40.47-4.31,8.39-4.53,16.82-4.53,26h3c0-37.87,37-45.6,61-67.17s33.93-52.65,35.91-83.83C208.23,42.66,137.91-18,70.91,5c-15.79,5.41-29.49,14.92-41,26.92a104.67,104.67,0,0,0-22.3,36c-16.22,44.62-6.38,95,28.3,128,16.7,16,48,22.43,57.47,45C96.16,247.48,94.91,255.88,94.91,262.88Z&quot; /&gt;
+	  &lt;path d=&quot;M84.91,18.31c-54,7.74-60.52,92.71-6,105a54.34,54.34,0,0,0,20,1.29,45,45,0,0,0,23-10.58c10.38-8.87,18.28-19.35,20.67-33.13C148.61,46.19,120.68,13.17,84.91,18.31Z&quot; /&gt;
+	  &lt;path d=&quot;M65.19,123.92c-4,2.36-4.28,9-4.28,13-.08,11,5.36,36,21,27.48a59.36,59.36,0,0,0,19.23-17.48c1.65-2.49,4.53-9-.38-10-6.35-1.44-13.07,9.77-19.54,6.76C75.65,141,77.88,116.38,65.19,123.92Z&quot; /&gt;
+	  &lt;path d=&quot;M80.91,128.88l2,10c5.9-1,12.45-2,13-9Z&quot; /&gt;
+	&lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          逆子治療
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;div class=&quot;section-category&quot;&gt;
+	&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 227.09 271&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+	  &lt;path d=&quot;M186.92,0c1.94,6,9,3.53,14,4.68,7.66,1.76,19.68,9.34,22,17.32.92,3-1.24,7.27-5,6.63-3.17-.6-6.19-4.63-9-6.5-5.22-3.13-12-4.33-18-4.09-11,.43-18.54,9-5,14v1c-7,0-19.43,4.7-9,12.3,4,2.94,10,3.32,15,3.7v1c-5.57,1.6-17,4.09-20,9,10.84-.22,17.74-5.26,27-9.85C209.46,44,223.34,39.67,226.6,26,231.41,5.81,200.12,0,186.92,0Zm-6,23c11-2,27-2.73,33,9C205.12,32,184.18,33.43,180.92,23Zm-5,15c7.46-3,19.21-3.22,20,7C188.3,45,179.8,46,175.92,38Zm24,7-5-11,20,1C212.92,42,206.36,43.65,199.92,45Z&quot; /&gt;
+	  &lt;path d=&quot;M54.92,77c4-.93,7.93-2.38,12-3.19a36.62,36.62,0,0,1,7-.79c6.87,0,11.21,4.38,7.38,11-4.43,7.64-13.08,13-19.38,19-2.35,2.21-6.38,4.63-7.07,8-1,5,4.07,12.16,6.81,16a53.66,53.66,0,0,0,46.26,22c17.37-1.28,33.39-10.89,42-26,2.64-4.35,7-11.78,5.36-17-3.36-10.66-22.8-16.81-22.36-29,.49-8.65,12.42-7.34,18-6-2-6-6.47-10.63-11-15C112.68,30,68.13,43.47,54.92,77Z&quot; /&gt;
+	  &lt;path d=&quot;M44.92,271h127c0-22-4.15-43.33-7.27-65-1-6.58-6-20.74-3.41-26.82,2.07-4.91,11.38-8.65,15.68-11.51,18.54-12.36,48.81-27.44,37.33-54.67-3.33-7.85-9.34-10.64-16.33-14.8-12-7.13-24.74-15.38-38-19.84-4-1.36-17.77-6.36-21-1.77-2.37,3.61,5.89,9.41,8,11.41,8,7.7,16.51,15.23,25,22.58,2.31,2,8.46,6,7.39,9.75-.82,2.84-5.1,4.68-7.39,6.07-7.53,4.6-15.18,8.81-23,12.86-23.12,12-43,21.52-69,10.74-6-2.6-10.3-7.67-16-10.74-7.65-4.12-20-8.67-25.46-15.5-3.2-3.94,2.79-8,5.46-10.34,8.8-7.65,17.55-15.42,26-23.42,2-2,10.37-7.8,7.91-11.41-3.47-5.1-19.64,1.14-23.91,2.86C36.09,88.65,1.92,102.24.11,124c-2,23.26,23.62,35,39.81,45.67,4.3,2.86,13.6,6.6,15.68,11.51,2.32,5.87-2.32,19.48-3.26,25.82C49.19,228.26,44.92,249.45,44.92,271Z&quot; /&gt;
+	&lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          精神不安
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;div class=&quot;section-category&quot;&gt;
+	&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 236.7 250.86&quot; fill=&quot;#ed7a9e&quot; class=&quot;section-category-image&quot;&gt;
+	  &lt;path d=&quot;M53.53,22.92c-32,1.41-46,45-19,63.6,6.55,4.54,15.29,5.1,23,4.81C101.08,89.38,96.53,21.33,53.53,22.92Z&quot; /&gt;
+	  &lt;path d=&quot;M142.53.82c-6.11-1.49-13.7-.49-20-.49v1c11.83,3.49,19.94,2,30,11.17C155.19,15,164,26.4,154.53,27c-3.68.31-8-5.42-11-7.16-7.12-4-19.3-5.29-27-1.53s.59,10.35,5,12v1c-7,0-19.43,4.69-9,12.29,4,3,10,3.32,15,3.71v1c-5.57,1.6-17,4.08-20,9,11.41-.24,18-6.17,28-10.31,5.34-2.22,11.41-2.36,15.6-6.91,3.21-3.48,10-11.31,11.08-15.78C164.75,13.65,151.51,3.33,142.53.82Zm-26,20.51c11-2,27-2.73,33,9C140.73,30.33,119.79,31.76,116.53,21.33Zm-5,15c7.46-3,19.21-3.22,20,7C123.91,43.33,115.41,44.33,111.53,36.33Zm24,7-5-11,20,1C148.53,40.33,142,42,135.53,43.33Z&quot; /&gt;
+	  &lt;path d=&quot;M5.53,172.33c4.53-12,6.84-31.29,17-40l-1,28h51v-27c6.36,7.48,7.91,14.54,9.18,24,.31,2.29,1,7.54,3.82,8.08,3.71.65,3.82-7,4-9.08,1.17-10,1.94-19-.35-29-2-8.56-11.25-27.85-20.65-30-6-1.55-13.56,1.62-20,.7-5-.7-12.25-5.41-17-4.55-23,4.14-27.65,37-30.13,54.85C.46,155.08-2.74,169.82,5.53,172.33Z&quot; /&gt;
+	  &lt;path d=&quot;M196.53,95.33c1.94,6,9,3.53,14,4.68,7.66,1.76,19.68,9.33,22,17.32.92,3-1.24,7.27-5,6.62-3.17-.59-6.19-4.62-9-6.49-5.22-3.13-12-4.33-18-4.09-11,.43-18.54,9-5,14v1c-7.05,0-19.43,4.69-9,12.29,4,2.95,10,3.32,15,3.71v1c-5.57,1.6-17,4.08-20,9,10.84-.23,17.74-5.26,27-9.85,10.54-5.15,24.42-9.48,27.68-23.15C241,101.14,209.73,95.33,196.53,95.33Zm-6,23c11-2,27-2.73,33,9C214.73,127.33,193.79,128.76,190.53,118.33Zm-5,15c7.46-3,19.21-3.22,20,7C197.91,140.33,189.41,141.33,185.53,133.33Zm24,7-5-11,20,1C222.53,137.33,216,139,209.53,140.33Z&quot; /&gt;
+	  &lt;path d=&quot;M162.53,159.84c-5,.49-9.72,1.49-14,4-2.56,1.53-5.76,5.31-9,4.89-3.78-.37-7.3-4.9-11-6.28-13-4.8-27.74-1.43-36.81,8.91-21.86,25,6.07,58.44,27.81,71,6.45,3.52,14.24,8.8,22,8.52,23-.81,49.88-26.87,54.48-48.52C200.75,180,187.12,158.33,162.53,159.84Z&quot; /&gt;
+	&lt;/svg&gt;
+
+        &lt;span class=&quot;section-category-label&quot;&gt;
+          その他身体や&lt;br&gt;心の不調
+        &lt;/span&gt;
+      &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;" title="診療科目タイル"></iframe>
+  <figcaption class="mt-2 text-sm"><a href="../../ui/components/section-category/index.html">診療科目タイル</a></figcaption></figure>
+</div>
+
+<h2>外部サービス</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>外部サービス</th><th>使い方</th><th>気をつける点</th></tr></thead><tbody><tr><td>Google Fonts</td><td>Shippori Mincho B1</td><td></td></tr><tr><td>Google アナリティクス 4</td><td><code>G-SP3Z1G4GG9</code>。電話ボタンを押した時点のスクロール率を <code>tel_action</code> イベントで送る</td><td>404 ページには入れない</td></tr><tr><td>Google Maps Embed API</td><td>ページ下部の地図</td><td>API キーはリファラー制限付きの可能性があり、workers.dev では表示されないことがある</td></tr><tr><td>NAVITIME</td><td>バス停の時刻表へのリンク</td><td><a href="../../issues/navitime-link-empty/index.html">リンク先が空</a></td></tr></tbody></table></div>
+
+<h2>関連する課題</h2>
+<ul class="list">
+  <li><span class="pill" data-v="高">高</span> <a href="../../issues/jsonld-thursday-open/index.html">構造化データで木曜日が営業日になっている</a></li><li><span class="pill" data-v="中">中</span> <a href="../../issues/og-image-relative-path/index.html">og:image が相対パスになっている</a></li><li><span class="pill" data-v="中">中</span> <a href="../../issues/navitime-link-empty/index.html">NAVITIME の時刻表リンクの行き先が空</a></li><li><span class="pill" data-v="中">中</span> <a href="../../issues/years-in-business-hardcoded/index.html">導入文の「２９年目」が固定の文字列</a></li><li><span class="pill" data-v="中">中</span> <a href="../../issues/legacy-server-shutdown/index.html">旧サーバーの停止と旧データベースの扱い</a></li><li><span class="pill" data-v="低">低</span> <a href="../../issues/sitemap-lastmod-stale/index.html">sitemap.xml の lastmod が 2021-11-15 のまま</a></li><li><span class="pill" data-v="低">低</span> <a href="../../issues/remove-legacy-source/index.html">参照用に置いた旧ソースを削除する</a></li>
+</ul>
+
+<h2>セッション履歴</h2>
+<ul class="list">
+  <li>2026-10-22 <a href="../../features/homepage/sessions/20261022-0017-migrate-to-workers/index.html">PHP から Workers へ移行する</a> <span class="pill" data-v="done">done</span></li>
+</ul>
+
+</main>
+</div>
+<script src="../../sidebar.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex">
+    <title>ページが見つかりません | 小谷はり灸所</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&display=swap">
+
+    <style>
+    body {
+      margin: 0;
+      color: #333333;
+      background-color: #ffffff;
+      font-family: "Shippori Mincho B1", serif;
+      animation: fade-in 3s;
+    }
+
+    h1, p {
+      margin: 0;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .header {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      right: 0;
+      left: 0;
+      display: grid;
+      grid-template-rows: 52px;
+      grid-template-columns: 16px 1fr;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.75);
+    }
+
+    .page-title {
+      grid-column-start: 2;
+      color: inherit;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 20px;
+      letter-spacing: 4px;
+      text-decoration: none;
+    }
+
+    .not-found {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      min-height: 100svh;
+      padding: 96px 24px 64px;
+      text-align: center;
+    }
+
+    .not-found-mark {
+      width: 64px;
+      height: 96px;
+    }
+
+    .not-found-smoke {
+      stroke-dasharray: 6 4;
+      animation: smoke 4s linear infinite;
+    }
+
+    @keyframes smoke {
+      0% {
+        stroke-dashoffset: 0;
+        opacity: 0.9;
+      }
+
+      100% {
+        stroke-dashoffset: -40;
+        opacity: 0.5;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body,
+      .not-found-smoke {
+        animation: none;
+      }
+    }
+
+    .not-found-code {
+      color: #ed7a9e;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 8px;
+    }
+
+    .not-found-title {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.6;
+      letter-spacing: 2px;
+    }
+
+    .not-found-text {
+      font-size: 15px;
+    }
+
+    .primary-action {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 12px;
+      padding: 12px 0;
+      background-color: #ed7a9e;
+      border-radius: 8px;
+      color: #ffffff;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    }
+
+    .secondary-action {
+      color: #333333;
+      font-size: 15px;
+      text-decoration-color: #ed7a9e;
+      text-underline-offset: 4px;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-row-gap: 8px;
+      padding: 48px 24px;
+      background-color: #ed7a9e;
+      color: #ffffff;
+    }
+
+    .footer-shop-name {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .footer-information {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      text-align: right;
+    }
+
+    .footer-information a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <a href="/" class="page-title">小谷はり灸所</a>
+    </header>
+
+    <main class="not-found">
+      <svg viewBox="0 0 64 96" class="not-found-mark" aria-hidden="true">
+        <path d="M32 6c-7 6 7 11 0 19s7 11 0 19" fill="none" stroke="#ed7a9e" stroke-width="2" stroke-linecap="round" class="not-found-smoke" />
+        <path d="M23 82 32 52 41 82Z" fill="#ed7a9e" />
+        <ellipse cx="32" cy="84" rx="22" ry="5" fill="#f7d3df" />
+      </svg>
+
+      <p class="not-found-code">404</p>
+
+      <h1 class="not-found-title">お探しのページは<br>見つかりませんでした</h1>
+
+      <p class="not-found-text">ページの場所が変わったか、<br>URL が間違っている可能性があります。</p>
+
+      <a href="/" class="primary-action">トップページへ戻る</a>
+
+      <a href="tel:+81722375695" class="secondary-action">お電話でのお問合せ 072-237-5695</a>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-shop-name">小谷はり灸所</div>
+
+      <div class="footer-information">大阪府堺市東区大美野 158-23</div>
+
+      <div class="footer-information">南海バス北野田線 西口園バス停から徒歩2分</div>
+
+      <div class="footer-information">
+        <a href="tel:+81722375695">072-237-5695</a>
+      </div>
+    </footer>
+  </body>
+</html>

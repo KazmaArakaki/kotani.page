@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHP から Workers へ移行する | kotani.page docs</title>
+  <meta name="session-state" content="done">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-serif: "Shippori Mincho B1", serif;
+      --font-sans: "Zen Kaku Gothic New", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+      --color-paper: #f7f2e8;
+      --color-paper-deep: #efe7d8;
+      --color-sheet: #fffdf8;
+      --color-ink: #2b2622;
+      --color-ink-soft: #6b6159;
+      --color-rule: #d9cfbe;
+      --color-moxa: #ed7a9e;
+      --color-moxa-deep: #b8466b;
+      --color-ochre: #8a6a1f;
+      --color-pine: #3f5a4c;
+    }
+    @layer base {
+      body {
+        background-color: var(--color-paper);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .17 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        line-height: 1.9;
+      }
+      h1, h2, h3 { font-family: var(--font-serif); }
+      code { font-family: var(--font-mono); font-size: .85em; background: var(--color-paper-deep); padding: .05em .35em; border-radius: .25rem; }
+      a { color: var(--color-moxa-deep); text-underline-offset: 3px; }
+      ::selection { background: #f7c9d8; }
+    }
+    @layer components {
+      .doc { max-width: 52rem; margin: 0 auto; padding: 4.5rem 1.25rem 7rem; }
+      .eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .2em; color: var(--color-moxa-deep); }
+      .doc h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 800; line-height: 1.4; letter-spacing: .06em; margin: .4rem 0 1.25rem; }
+      .doc h2 { font-size: 1.4rem; font-weight: 700; margin: 3.5rem 0 1rem; padding-top: 1.25rem; border-top: 1px solid var(--color-rule); letter-spacing: .04em; }
+      .doc h3 { font-size: 1.08rem; font-weight: 700; margin: 2rem 0 .5rem; }
+      .doc p { margin: .75rem 0; }
+      .doc ul.list { list-style: disc; padding-left: 1.4rem; margin: .75rem 0; }
+      .doc ol.list { list-style: decimal; padding-left: 1.6rem; margin: .75rem 0; }
+      .doc .list li { margin: .3rem 0; }
+      .lead { font-size: 1.04rem; color: var(--color-ink-soft); }
+      .tbl-wrap { overflow-x: auto; margin: 1rem 0; }
+      .tbl { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.7; }
+      .tbl th { text-align: left; font-weight: 500; font-size: .76rem; letter-spacing: .05em; color: var(--color-ink-soft); border-bottom: 1.5px solid var(--color-ink); padding: .45rem .6rem; white-space: nowrap; }
+      .tbl td { border-bottom: 1px solid var(--color-rule); padding: .6rem; vertical-align: top; }
+      .card { background: var(--color-sheet); border: 1px solid var(--color-rule); border-radius: .6rem; padding: 1.1rem 1.25rem; }
+      .pill { display: inline-flex; align-items: center; gap: .35rem; font-family: var(--font-mono); font-size: .72rem; line-height: 1.6; padding: 0 .55rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+      .pill[data-v="planning"], .pill[data-v="中"] { color: var(--color-ochre); }
+      .pill[data-v="developing"], .pill[data-v="高"] { color: var(--color-moxa-deep); }
+      .pill[data-v="done"] { color: var(--color-pine); }
+      .pill[data-v="低"], .pill[data-v="open"] { color: var(--color-ink-soft); }
+      pre.code { background: var(--color-ink); color: #f3ece0; padding: 1rem 1.2rem; border-radius: .5rem; overflow-x: auto; font-family: var(--font-mono); font-size: .8rem; line-height: 1.75; margin: 1rem 0; }
+      pre.code code { background: none; padding: 0; color: inherit; font-size: inherit; }
+      .next { border-left: 4px solid var(--color-moxa); background: var(--color-sheet); padding: .9rem 1.1rem; border-radius: 0 .5rem .5rem 0; margin: 1.5rem 0; }
+      .next b { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .15em; color: var(--color-moxa-deep); display: block; }
+      .dialog { margin: .6rem 0; padding-left: 1rem; border-left: 2px solid var(--color-rule); font-size: .92rem; }
+      .dialog dt { font-size: .74rem; color: var(--color-ink-soft); margin-top: .4rem; }
+      .dialog dd { margin: 0; }
+      .frame { border: 1px solid var(--color-rule); border-radius: .5rem; background: #fff; display: block; }
+    }
+  </style>
+</head>
+<body>
+<div class="lg:pl-[17rem]">
+<main class="doc">
+
+<p class="eyebrow">SESSION / 2026-10-22 00:17 JST</p>
+<h1>PHP から Workers へ移行する</h1>
+<p class="flex flex-wrap gap-2"><span class="pill" data-v="done">state: done</span> <a class="pill" data-v="open" href="../../../../features/homepage/index.html" style="text-decoration:none">feature: homepage</a></p>
+
+<p class="lead">
+小谷はり灸所のホームページは、1枚の HTML を返すために PHP と CakePHP と MySQL を動かしていた。
+この組み合わせのうち、患者さんの目に届いているのはテンプレート2枚ぶんの出力だけである。
+それなら、出力そのものを静的ファイルにして置けば済むはずだ。
+</p>
+<p>
+ただ、確かめてみると、旧サイトは見た目以上のことをしていた。
+存在しない URL をトップへリダイレクトし、怪しいアクセスを DB に記録して IP を締め出していた。
+どれを持っていき、どれを手放すかを、このセッションで決めた。
+</p>
+
+<div class="next">
+  <b>NEXT</b>
+  このセッションは完了した。次は優先度「高」の課題 <a href="../../../../issues/jsonld-thursday-open/index.html">JSON-LD で木曜が営業日</a> を直す。
+</div>
+
+<h2>決めたこと</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>問い</th><th>決定</th><th>理由</th></tr></thead><tbody><tr><td>1</td><td>なぜリプレイスするか</td><td>サーバー費用と保守の手間を減らす。見た目と内容は変えない</td><td>動的な処理がなく、PHP をやめるだけで軽くなる。デザイン刷新や更新の仕組みは別セッション</td></tr><tr><td>2</td><td>元ファイルをどこから取るか</td><td>旧リポジトリを clone（<code>kotani.page.org/</code>）</td><td>隠れたリダイレクトや設定まで確認できる。実際に 302 リダイレクトが見つかった</td></tr><tr><td>3</td><td>Cloudflare 上の載せ方</td><td>Workers の <a href="../../../../glossary.html#static-assets">Static Assets</a></td><td>ファイルを置くだけで配信でき、あとからコードも足せる</td></tr><tr><td>4</td><td>ビルド工程</td><td>入れない。素の HTML を手で書く</td><td>依存を増やさないことが、そのまま保守の軽さになる</td></tr><tr><td>5</td><td>ドメインの切り替え</td><td>DNS はすでに Cloudflare。<a href="../../../../glossary.html#workers-dev">workers.dev プレビュー</a>で確認してから <a href="../../../../glossary.html#custom-domain">Custom Domain</a> を付ける</td><td>本番に触る前に、旧サイトと見比べられる</td></tr><tr><td>6</td><td><code>webroot/</code> のどれを持っていくか</td><td>使っているもの全部と、空ファイル3つ。CakePHP の初期ファイルは捨てる</td><td>同じ URL が同じ内容を返す状態を保つ</td></tr><tr><td>7</td><td>存在しない URL</td><td><code>404.html</code> を 404 で返す（旧サイトは 302 でトップへ飛ばしていた）</td><td>検索エンジンに正しく伝わる。旧サイトとの違いは<a href="../../../../glossary.html#intended-diff">意図した差分</a>として扱う</td></tr><tr><td>8</td><td><a href="../../../../glossary.html#healthcheck">ヘルスチェック</a></td><td>静的ファイル <code>public/healthcheck</code> に <code>OK</code> と書き、<code>_headers</code> で <code>Content-Type</code> を旧サイトと揃える</td><td>コードを書かずに済む。叩いているのは GAS の定期実行。<code>_headers</code> は実装中に追加（下記）</td></tr><tr><td>9</td><td>既存の不具合</td><td>移行では直さない。課題に記録する</td><td>移行の確認を「旧サイトと差分なし」の一点にしぼる</td></tr><tr><td>10</td><td>新しいコードの置き場所</td><td><code>/workspaces/kotani-page</code> 直下を新リポジトリにする</td><td>旧ソースを参照専用としてはっきり分けられる</td></tr><tr><td>11</td><td>デプロイ</td><td>手元から <code>pnpm run deploy</code></td><td>更新頻度が低く、CI の保守を増やしたくない</td></tr><tr><td>12</td><td><a href="../../../../glossary.html#invalid-access-block">不正アクセスブロック</a></td><td>機能もデータも移行しない。旧 DB は消さずに残す</td><td>静的配信なら変な URL を叩かれても害がない。今回の作業で消えるデータはない</td></tr></tbody></table></div>
+
+<h2>全体のどこに位置づくか</h2>
+<p>
+kotani.page の<a href="../../../../glossary.html#homepage-feature">トップページ配信</a>は、このプロジェクトのただ一つの機能である。
+今回は、その機能の中身（ページの内容）を変えずに、土台だけを差し替える。
+</p>
+
+<svg viewBox="0 0 760 300" class="w-full h-auto" role="img" aria-label="移行前と移行後" font-family="Zen Kaku Gothic New, sans-serif">
+  <text x="20" y="28" font-size="13" fill="#6b6159" font-family="IBM Plex Mono, monospace">BEFORE / 旧サイト</text>
+  <g>
+    <rect x="20" y="44" width="340" height="236" rx="12" fill="#fffdf8" stroke="#d9cfbe"/>
+    <rect x="40" y="64" width="300" height="44" rx="8" fill="#efe7d8"/>
+    <text x="190" y="92" text-anchor="middle" font-size="14" fill="#2b2622">PHP 8.0 サーバー</text>
+    <rect x="40" y="118" width="300" height="44" rx="8" fill="#efe7d8"/>
+    <text x="190" y="146" text-anchor="middle" font-size="14" fill="#2b2622">CakePHP（API、エラー処理、BAN 判定）</text>
+    <rect x="40" y="172" width="300" height="44" rx="8" fill="#efe7d8"/>
+    <text x="190" y="200" text-anchor="middle" font-size="14" fill="#2b2622">MySQL（invalid_access_logs）</text>
+    <rect x="40" y="226" width="300" height="38" rx="8" fill="none" stroke="#ed7a9e" stroke-dasharray="4 3"/>
+    <text x="190" y="250" text-anchor="middle" font-size="13" fill="#b8466b">実際に使うのはトップの HTML 1枚だけ</text>
+  </g>
+  <path d="M372 162 H408" stroke="#2b2622" stroke-width="2" marker-end="url(#ah2)"/>
+  <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#2b2622"/></marker></defs>
+  <text x="420" y="28" font-size="13" fill="#6b6159" font-family="IBM Plex Mono, monospace">AFTER / 新サイト</text>
+  <g>
+    <rect x="420" y="44" width="320" height="236" rx="12" fill="#fffdf8" stroke="#2b2622"/>
+    <rect x="440" y="64" width="280" height="44" rx="8" fill="#f7d3df"/>
+    <text x="580" y="92" text-anchor="middle" font-size="14" fill="#2b2622">Workers Static Assets</text>
+    <rect x="440" y="118" width="280" height="98" rx="8" fill="#efe7d8"/>
+    <text x="580" y="150" text-anchor="middle" font-size="14" fill="#2b2622">public/ の静的ファイル</text>
+    <text x="580" y="174" text-anchor="middle" font-size="12" fill="#6b6159">HTML 3つ、画像、PDF、</text>
+    <text x="580" y="194" text-anchor="middle" font-size="12" fill="#6b6159">robots.txt など</text>
+    <text x="580" y="248" text-anchor="middle" font-size="13" fill="#3f5a4c">サーバーも DB も持たない</text>
+  </g>
+</svg>
+
+<p>
+旧サイトで動いていたものは、トップの描画、<code>/healthcheck</code>、API、エラー処理と<a href="../../../../glossary.html#invalid-access-block">不正アクセスブロック</a>の4つに分かれる。
+残すのは前の2つだけで、どちらも静的ファイルで返せる。
+後ろの2つは、静的配信になると守る対象そのもの（PHP とその脆弱性）がなくなる。
+</p>
+<p>
+内容の誤りもいくつか見つかった。
+ただし、ここで直すと「移行で変わった部分」と「修正で変わった部分」の区別がつかなくなる。
+移行が正しくできたかを確かめる方法は、<a href="../../../../glossary.html#old-site">旧サイト</a>の HTML と<a href="../../../../glossary.html#new-site">新サイト</a>の <code>index.html</code> を比べて差分がないことの一点にしたい。
+誤りは課題に回し、切り替えのあとで直す。
+</p>
+
+<h2>詳細設計</h2>
+
+<h3>リポジトリの構成</h3>
+<pre class="code"><code>/workspaces/kotani-page/
+├── public/                 配信するファイルすべて（正本）
+│   ├── index.html          旧テンプレート2枚を展開した素の HTML
+│   ├── 404.html            新規。存在しない URL 用
+│   ├── healthcheck         新規。中身は &quot;OK&quot; の2バイト
+│   ├── _headers            新規。/healthcheck の Content-Type を指定
+│   ├── img/                CakePHP 以外の35件
+│   ├── pdf/                けんこかわら版 8件
+│   ├── favicon.ico  robots.txt  sitemap.xml  ads.txt  humans.txt
+│   └── .well-known/apple-app-site-association
+├── wrangler.jsonc
+├── package.json            devDependencies は wrangler だけ。pnpm を使う
+├── pnpm-workspace.yaml     esbuild と workerd のビルドを許可
+├── .gitignore              node_modules/ .wrangler/ kotani.page.org/
+├── docs/
+└── kotani.page.org/        旧ソース（参照専用、git 管理外）</code></pre>
+<ul class="list">
+  <li><code>public/</code> を配信物の正本にする。Static Assets はこのディレクトリをそのまま配信するので、ここにあるものがすべてで、ほかに隠れた処理はない。</li>
+  <li><code>kotani.page.org/</code> は変換の元として見返すために残すが、新リポジトリの履歴には入れない。削除は<a href="../../../../issues/remove-legacy-source/index.html">課題</a>に記録した。</li>
+</ul>
+
+<h3>wrangler.jsonc</h3>
+<pre class="code"><code>{
+  &quot;$schema&quot;: &quot;node_modules/wrangler/config-schema.json&quot;,
+  &quot;name&quot;: &quot;kotani-page&quot;,
+  &quot;compatibility_date&quot;: &quot;2026-10-01&quot;,
+  &quot;assets&quot;: {
+    &quot;directory&quot;: &quot;./public&quot;,
+    &quot;not_found_handling&quot;: &quot;404-page&quot;
+  }
+  // 切り替え当日に、次の routes を追加して再デプロイする
+  // &quot;routes&quot;: [{ &quot;pattern&quot;: &quot;kotani.page&quot;, &quot;custom_domain&quot;: true }]
+}</code></pre>
+<ul class="list">
+  <li><code>main</code>（Worker のスクリプト）を書かない。<code>assets</code> だけの Worker は、リクエストを静的ファイルの配信だけで処理する。</li>
+  <li><code>not_found_handling: "404-page"</code> で、該当ファイルがないときに最も近い <code>404.html</code> を 404 で返す。</li>
+  <li><code>routes</code> は切り替え当日まで入れない。最初のデプロイで本番ドメインを奪わないためである。</li>
+  <li><code>html_handling</code> は既定の <code>auto-trailing-slash</code> のまま。<code>/index.html</code> は <code>/</code> へ寄せられる。</li>
+</ul>
+
+<h3>package.json</h3>
+<pre class="code"><code>{
+  &quot;name&quot;: &quot;kotani-page&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;wrangler dev&quot;,
+    &quot;deploy&quot;: &quot;wrangler deploy&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;wrangler&quot;: &quot;^4.151.3&quot;
+  },
+  &quot;packageManager&quot;: &quot;pnpm@12.14.0&quot;
+}</code></pre>
+<pre class="code"><code># pnpm-workspace.yaml
+allowBuilds:
+  esbuild: true
+  workerd: true</code></pre>
+<p>パッケージマネージャーは pnpm。入れるのは wrangler だけで、ビルドスクリプトを許可するのは wrangler の依存の <code>esbuild</code> と <code>workerd</code> だけ。<code>pnpm dev</code> で手元のプレビュー、<code>pnpm run deploy</code> で公開する（<code>pnpm deploy</code> はワークスペース用の別コマンドなので <code>run</code> を付ける）。</p>
+
+<h3>index.html への変換規則</h3>
+<p>
+旧テンプレート <code>templates/layout/default.php</code> と <code>templates/Home/index.php</code> の2枚を、1枚の素の HTML に展開する。
+<code>header.php</code> と <code>footer.php</code> は0バイトなので、展開しても何も入らない。
+テンプレートの PHP は、次の表のものしか使っていない。
+</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>旧テンプレートの書き方</th><th>新しい index.html での書き方</th><th>なぜ</th></tr></thead><tbody><tr><td><code>&lt;?= __('文字列') ?&gt;</code></td><td><code>文字列</code></td><td>翻訳ファイルがなく、引数をそのまま返していた</td></tr><tr><td><code>implode('', [sprintf('&lt;p&gt;%s&lt;/p&gt;', __('…')), …])</code></td><td><code>&lt;p&gt;…&lt;/p&gt;</code> を並べる</td><td>改行なしで連結されるので、出力に合わせて改行も入れない</td></tr><tr><td><code>$this-&gt;Url-&gt;image('x.jpg')</code></td><td><code>/img/x.jpg</code></td><td><code>fullBase</code> なしは相対パスを出力していた</td></tr><tr><td><code>$this-&gt;Url-&gt;image('x.jpg', ['fullBase' =&gt; true])</code></td><td><code>https://kotani.page/img/x.jpg</code></td><td>JSON-LD の <code>image</code> と <code>logo</code></td></tr><tr><td><code>$this-&gt;Url-&gt;assetUrl('x.pdf', ['pathPrefix' =&gt; 'pdf/'])</code></td><td><code>/pdf/x.pdf</code></td><td>けんこかわら版の8件</td></tr><tr><td><code>$this-&gt;Url-&gt;build(['?' =&gt; false], ['fullBase' =&gt; true])</code></td><td><code>https://kotani.page/</code></td><td><code>og:url</code> と <code>canonical</code>。トップ以外のページがないので固定値になる</td></tr><tr><td><code>sprintf('data:image/svg+xml;charset=utf8,%s', rawurlencode(implode(' ', [...])))</code></td><td>SVG を空白で連結し、RFC 3986 でパーセントエンコードした data URI</td><td>CSS のアイコン（矢印、ピン、徒歩、電話）。設計時の調査で見落とし、変換中に見つけた</td></tr><tr><td><code>$this-&gt;append('css')</code> / <code>append('script')</code> / <code>fetch(...)</code></td><td>それぞれの <code>&lt;style&gt;</code> と <code>&lt;script&gt;</code> を、レイアウトの <code>fetch</code> 位置にそのまま置く</td><td>レイアウトとテンプレートの2枚を1枚に展開する</td></tr></tbody></table></div>
+<p>
+変換が正しいかどうかは、本番の HTML と比べて確かめる。
+比べる相手は <code>curl https://kotani.page/</code> の出力で、空白と改行を正規化したうえで差分ゼロを合格とする。
+</p>
+
+<h3>持っていくファイル</h3>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>区分</th><th>ファイル</th><th>扱い</th></tr></thead><tbody><tr><td>ページが参照</td><td><code>img/</code> のうち CakePHP 以外の35件、<code>pdf/</code> 8件</td><td>持っていく。<code>section3_category1_image*.svg</code> の8件はページから参照されていないが、同じ URL を保つために含める</td></tr><tr><td>検索エンジン向け</td><td><code>favicon.ico</code> <code>robots.txt</code> <code>sitemap.xml</code></td><td>持っていく</td></tr><tr><td>空、またはほぼ空</td><td><code>ads.txt</code> <code>humans.txt</code> <code>.well-known/apple-app-site-association</code></td><td>持っていく（数十バイトで、消す理由がない）</td></tr><tr><td>CakePHP の初期ファイル</td><td><code>css/</code> 4件、<code>font/cakedingbats-*</code> 5件、<code>img/cake*</code> 4件、<code>index.php</code></td><td>捨てる（トップページから参照されていない）</td></tr></tbody></table></div>
+
+<h3>404.html</h3>
+<p>
+存在しない URL には、院名と「トップページへ戻る」ボタンだけのページを返す。
+トップと同じフォント、文字色、アクセント色を使い、電話ボタンと同じ形のボタンを置く。
+見本は <a href="../../../../ui/pages/site/404/index.html">ページ見本の 404</a> にあり、そこにある <code>404.html</code> をそのまま <code>public/404.html</code> にする。
+</p>
+<p>
+旧サイトはトップへ 302 で飛ばしていたので、この扱いは<a href="../../../../glossary.html#intended-diff">意図した差分</a>になる。
+404 ページには Google アナリティクスを入れない。旧サイトではリダイレクト先のトップとして数えられていたので、数字の連続性はもともとない。
+</p>
+
+<h3>/healthcheck</h3>
+<p>
+<code>public/healthcheck</code> に <code>OK</code>（改行なし）を置く。
+叩いているのは GAS の定期実行で、<code>UrlFetchApp</code> の応答コードと本文で判定しているはずである。
+</p>
+<p>
+拡張子がないので、そのままでは <code>Content-Type</code> が付かなかった（<code>wrangler dev</code> で確認）。
+Static Assets が読む <code>public/_headers</code> に次の2行を書くと、旧サイトと同じ <code>text/plain; charset=UTF-8</code> になる。
+<code>_headers</code> 自体は配信されず、<code>/_headers</code> は 404 になる。
+</p>
+<pre class="code"><code>/healthcheck
+  Content-Type: text/plain; charset=UTF-8</code></pre>
+<p>
+<code>auto-trailing-slash</code> が拡張子のないパスを HTML ページとして扱う心配もあったが、<code>/healthcheck</code> は 200 と <code>OK</code> を返した。
+GAS からは、workers.dev へのデプロイ後に一度叩いてもらう。
+</p>
+
+<h2>旧サイトから変わる挙動</h2>
+<p>次の3点は、差分があってよいと決めたもの。<code>robots.txt</code> の <code>charset</code> や <code>sitemap.xml</code> の型（<code>text/xml</code> から <code>application/xml</code>）のような、配信基盤が付ける型の細かな違いは含めない。これ以外の差分は移行の誤りとして扱う。</p>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>URL や挙動</th><th>旧サイト</th><th>新サイト</th></tr></thead><tbody><tr><td>存在しない URL（<code>/nope</code>、<code>/pages/*</code>、<code>/api/*</code> など）</td><td>302 で <code>https://kotani.page/</code> へ</td><td>404 と <code>404.html</code></td></tr><tr><td>レスポンスヘッダー <code>x-powered-by: PHP/8.0.13</code></td><td>あり</td><td>なし</td></tr><tr><td>不正アクセスの記録と BAN</td><td>あり</td><td>なし</td></tr></tbody></table></div>
+
+<h2>実装の手順</h2>
+<ol class="list">
+  <li><span class="pill" data-v="done">done</span> dev container に Node.js を入れる。今の <code>.devcontainer/Dockerfile</code> には Node がなく、wrangler が動かない（<code>devcontainer.json</code> に <code>ghcr.io/devcontainers/features/node:1</code> を <code>"version": "lts"</code> で足す。15分）。当初 apt の Node 22 を入れたが、2027-04 にサポートが終わるため 24 に入れ替えた</li>
+  <li><span class="pill" data-v="done">done</span> <code>git init</code> し、<code>.gitignore</code>、<code>package.json</code>、<code>wrangler.jsonc</code> を置く（10分）</li>
+  <li><span class="pill" data-v="done">done</span> <code>webroot/</code> から持っていくファイルを <code>public/</code> へコピーする（10分）</li>
+  <li><span class="pill" data-v="done">done</span> 変換規則に沿って <code>public/index.html</code> を書き、本番 HTML との差分ゼロを確かめる（1時間）。テンプレートを機械的に展開する変換スクリプトで生成し、空白を正規化した比較で差分ゼロを確認した</li>
+  <li><span class="pill" data-v="done">done</span> <code>public/404.html</code> と <code>public/healthcheck</code> を置き、<code>pnpm dev</code> で確かめる（20分）。<code>public/_headers</code> も置いた</li>
+  <li><span class="pill" data-v="done">done</span> <code>pnpm run deploy</code> で workers.dev に出し、下の「切り替え前の確認」をすべて通す（30分）。2026-10-22 に <code>https://kotani-page.twi1ightmessenger1988.workers.dev</code> へデプロイ済み。認証は <code>.devcontainer/.env</code> の <code>CLOUDFLARE_API_TOKEN</code>（dev container がポートを公開しておらず、<code>wrangler login</code> のコールバックが届かないため）。GAS からの確認と目視も開発者が済ませた</li>
+</ol>
+
+<h2>切り替え前の確認</h2>
+<ul class="list">
+  <li>✅ workers.dev の <code>/</code> と本番の HTML の差分がない</li>
+  <li>✅ <code>index.html</code> が参照する画像27件と PDF 8件が、すべて 200 で返る（<code>public/</code> の全ファイルでも確認）</li>
+  <li>✅ <code>/healthcheck</code> が 200、<code>text/plain; charset=UTF-8</code>、<code>OK</code> を返す</li>
+  <li>✅ GAS のスクリプトを workers.dev の URL に向けて一度実行し、成功と判定される</li>
+  <li>✅ <code>/.well-known/apple-app-site-association</code> が返る（ドットで始まるディレクトリが配信対象から外れていないか）</li>
+  <li>✅ <code>/nope</code> が 404 と <code>404.html</code> を返す</li>
+  <li>Google マップの埋め込みは、API キーのリファラー制限で workers.dev では出ない可能性がある。出なくても不合格にしない</li>
+  <li>✅ ブラウザで開き、旧サイトと見た目が同じことを目視する</li>
+</ul>
+
+<h2>切り替えの手順</h2>
+<ol class="list">
+  <li><span class="pill" data-v="done">done</span> Cloudflare の DNS で、今の <code>kotani.page</code> のレコード（種類、値、プロキシ設定）を控える。戻すときに使う</li>
+  <li><code>wrangler.jsonc</code> に <code>routes</code> を足して <code>pnpm run deploy</code> する。既存のレコードがあると Custom Domain の作成が拒否されることがあるので、そのときはダッシュボードの指示に従って既存レコードを置き換える<br>
+<span class="pill" data-v="done">done</span> 実際には、wrangler が付ける「既存レコードを上書きする」指定があっても、API が <code>Hostname 'kotani.page' already has externally managed DNS records</code>（code 100117）で拒否した。そこで A レコードを API で削除し、直後に <code>pnpm run deploy</code> した。失敗したら A レコードを自動で作り直すようにして実行した。2026-10-22 01:09:28 JST に削除し、01:09:35 に Custom Domain の作成が完了、01:09:44 に 200 を確認。止まっていたのは長くても16秒ほど</li>
+  <li>本番の <code>https://kotani.page/</code> で、切り替え前の確認をもう一度通す（レスポンスヘッダーに <code>x-powered-by</code> がなければ新サイト）<br>
+<span class="pill" data-v="done">done</span> HTML の差分なし、<code>x-powered-by</code> なし、<code>/healthcheck</code> は 200 と <code>text/plain; charset=UTF-8</code> と <code>OK</code>、<code>/nope</code> は 404、<code>public/</code> の50ファイルはすべて 200。MX の5件、<code>dev.kotani.page</code>、<code>_domainconnect</code> はそのまま残り、apex には Workers が管理する読み取り専用の AAAA <code>100::</code> ができた</li>
+  <li><span class="pill" data-v="done">done</span> GAS の向き先を本番に戻し、次の定期実行が成功することを見届ける<br>2026-10-22 に開発者が GAS の URL を <code>https://kotani.page/healthcheck</code> に戻して手動で実行し、成功を確認した</li>
+</ol>
+<h3>控えた DNS レコード（2026-10-22 切り替え前）</h3>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>種類</th><th>名前</th><th>値</th><th>プロキシ</th><th>切り替えでの扱い</th></tr></thead><tbody>
+<tr><td>A</td><td><code>kotani.page</code></td><td><code>150.95.134.150</code></td><td>オン</td><td>Custom Domain に置き換わる。戻すときはこの値で作り直す</td></tr>
+<tr><td>A</td><td><code>dev.kotani.page</code></td><td><code>150.95.134.150</code></td><td>オン</td><td>触らない（旧サーバーを指したまま）</td></tr>
+<tr><td>CNAME</td><td><code>_domainconnect.kotani.page</code></td><td><code>connect.domains.google.com</code></td><td>オン</td><td>触らない</td></tr>
+<tr><td>MX ×5</td><td><code>kotani.page</code></td><td><code>gmr-smtp-in.l.google.com</code> ほか alt1〜4</td><td>オフ</td><td>触らない。切り替え後も残っていることを確かめる</td></tr>
+</tbody></table></div>
+<p>
+<code>routes</code> を足したデプロイから、workers.dev の URL は 404 になった。<code>wrangler.jsonc</code> で <code>workers_dev</code> を指定していないと、<code>routes</code> があるときは workers.dev が無効になるためである。本番と同じ内容の URL が別にあっても使い道がないので、このままにする。
+</p>
+<p>
+戻すときは、Worker から Custom Domain を外し、手順1で控えたレコードを作り直す。
+旧サーバーは止めずに残してあるので、レコードさえ戻せば元どおりになる。
+</p>
+
+<h2>先送りにした課題</h2>
+<ul class="list">
+  <li><span class="pill" data-v="高">高</span> <a href="../../../../issues/jsonld-thursday-open/index.html">構造化データで木曜日が営業日になっている</a></li><li><span class="pill" data-v="中">中</span> <a href="../../../../issues/og-image-relative-path/index.html">og:image が相対パスになっている</a></li><li><span class="pill" data-v="中">中</span> <a href="../../../../issues/navitime-link-empty/index.html">NAVITIME の時刻表リンクの行き先が空</a></li><li><span class="pill" data-v="中">中</span> <a href="../../../../issues/years-in-business-hardcoded/index.html">導入文の「２９年目」が固定の文字列</a></li><li><span class="pill" data-v="中">中</span> <a href="../../../../issues/legacy-server-shutdown/index.html">旧サーバーの停止と旧データベースの扱い</a></li><li><span class="pill" data-v="低">低</span> <a href="../../../../issues/sitemap-lastmod-stale/index.html">sitemap.xml の lastmod が 2021-11-15 のまま</a></li><li><span class="pill" data-v="低">低</span> <a href="../../../../issues/remove-legacy-source/index.html">参照用に置いた旧ソースを削除する</a></li>
+</ul>
+
+</main>
+</div>
+<script src="../../../../sidebar.js" defer></script>
+</body>
+</html>

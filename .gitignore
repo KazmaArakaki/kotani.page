@@ -1,0 +1,27 @@
+# 依存パッケージ・Wrangler のローカル状態
+node_modules/
+.wrangler/
+
+# 秘密情報
+.devcontainer/.env
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# OS の生成物
+.DS_Store
+Thumbs.db
+
+# ログ
+*.log
+pnpm-debug.log*
+
+# エディタ・ツールの個人設定
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.claude/settings.local.json

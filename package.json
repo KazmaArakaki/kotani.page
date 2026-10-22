@@ -1,0 +1,12 @@
+{
+  "name": "kotani-page",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.3"
+  },
+  "packageManager": "pnpm@12.14.0"
+}

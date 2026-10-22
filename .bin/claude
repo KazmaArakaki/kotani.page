@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker exec -itw /workspaces/kotani-page kotani-page-app /home/vscode/.local/bin/claude

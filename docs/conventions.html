@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>開発規約 | kotani.page docs</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-serif: "Shippori Mincho B1", serif;
+      --font-sans: "Zen Kaku Gothic New", sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+      --color-paper: #f7f2e8;
+      --color-paper-deep: #efe7d8;
+      --color-sheet: #fffdf8;
+      --color-ink: #2b2622;
+      --color-ink-soft: #6b6159;
+      --color-rule: #d9cfbe;
+      --color-moxa: #ed7a9e;
+      --color-moxa-deep: #b8466b;
+      --color-ochre: #8a6a1f;
+      --color-pine: #3f5a4c;
+    }
+    @layer base {
+      body {
+        background-color: var(--color-paper);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .17 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        line-height: 1.9;
+      }
+      h1, h2, h3 { font-family: var(--font-serif); }
+      code { font-family: var(--font-mono); font-size: .85em; background: var(--color-paper-deep); padding: .05em .35em; border-radius: .25rem; }
+      a { color: var(--color-moxa-deep); text-underline-offset: 3px; }
+      ::selection { background: #f7c9d8; }
+    }
+    @layer components {
+      .doc { max-width: 52rem; margin: 0 auto; padding: 4.5rem 1.25rem 7rem; }
+      .eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .2em; color: var(--color-moxa-deep); }
+      .doc h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 800; line-height: 1.4; letter-spacing: .06em; margin: .4rem 0 1.25rem; }
+      .doc h2 { font-size: 1.4rem; font-weight: 700; margin: 3.5rem 0 1rem; padding-top: 1.25rem; border-top: 1px solid var(--color-rule); letter-spacing: .04em; }
+      .doc h3 { font-size: 1.08rem; font-weight: 700; margin: 2rem 0 .5rem; }
+      .doc p { margin: .75rem 0; }
+      .doc ul.list { list-style: disc; padding-left: 1.4rem; margin: .75rem 0; }
+      .doc ol.list { list-style: decimal; padding-left: 1.6rem; margin: .75rem 0; }
+      .doc .list li { margin: .3rem 0; }
+      .lead { font-size: 1.04rem; color: var(--color-ink-soft); }
+      .tbl-wrap { overflow-x: auto; margin: 1rem 0; }
+      .tbl { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.7; }
+      .tbl th { text-align: left; font-weight: 500; font-size: .76rem; letter-spacing: .05em; color: var(--color-ink-soft); border-bottom: 1.5px solid var(--color-ink); padding: .45rem .6rem; white-space: nowrap; }
+      .tbl td { border-bottom: 1px solid var(--color-rule); padding: .6rem; vertical-align: top; }
+      .card { background: var(--color-sheet); border: 1px solid var(--color-rule); border-radius: .6rem; padding: 1.1rem 1.25rem; }
+      .pill { display: inline-flex; align-items: center; gap: .35rem; font-family: var(--font-mono); font-size: .72rem; line-height: 1.6; padding: 0 .55rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+      .pill[data-v="planning"], .pill[data-v="中"] { color: var(--color-ochre); }
+      .pill[data-v="developing"], .pill[data-v="高"] { color: var(--color-moxa-deep); }
+      .pill[data-v="done"] { color: var(--color-pine); }
+      .pill[data-v="低"], .pill[data-v="open"] { color: var(--color-ink-soft); }
+      pre.code { background: var(--color-ink); color: #f3ece0; padding: 1rem 1.2rem; border-radius: .5rem; overflow-x: auto; font-family: var(--font-mono); font-size: .8rem; line-height: 1.75; margin: 1rem 0; }
+      pre.code code { background: none; padding: 0; color: inherit; font-size: inherit; }
+      .next { border-left: 4px solid var(--color-moxa); background: var(--color-sheet); padding: .9rem 1.1rem; border-radius: 0 .5rem .5rem 0; margin: 1.5rem 0; }
+      .next b { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .15em; color: var(--color-moxa-deep); display: block; }
+      .dialog { margin: .6rem 0; padding-left: 1rem; border-left: 2px solid var(--color-rule); font-size: .92rem; }
+      .dialog dt { font-size: .74rem; color: var(--color-ink-soft); margin-top: .4rem; }
+      .dialog dd { margin: 0; }
+      .frame { border: 1px solid var(--color-rule); border-radius: .5rem; background: #fff; display: block; }
+    }
+  </style>
+</head>
+<body>
+<div class="lg:pl-[17rem]">
+<main class="doc">
+
+<p class="eyebrow">CONVENTIONS</p>
+<h1>開発規約</h1>
+<p class="lead">
+1ページのサイトに、何年も手を入れずに済む状態を保つための約束ごと。
+迷ったら「依存を増やさない」ほうを選ぶ。
+</p>
+
+<h2>構成</h2>
+<ul class="list">
+  <li>ビルド工程を持たない。<code>public/</code> に置いたファイルが、そのまま配信される。</li>
+  <li>パッケージマネージャーは pnpm を使う（<code>package.json</code> の <code>packageManager</code> で版を固定）。依存は <code>wrangler</code> だけにする。CSS フレームワークや JavaScript ライブラリをサイトに入れない。</li>
+  <li>Node.js は、その時点の LTS を使う。dev container の Node feature は <code>"version": "lts"</code> にしてあり、コンテナを作り直すと最新の LTS が入る。</li>
+  <li>pnpm は依存パッケージのビルドスクリプトを既定で止める。wrangler が使う <code>esbuild</code> と <code>workerd</code> だけは <code>pnpm-workspace.yaml</code> の <code>allowBuilds</code> で許可している。許可はパッケージ名単位なので、wrangler を更新してもやり直す必要はない。</li>
+  <li>Worker のスクリプト（<code>main</code>）は、静的ファイルでどうしても返せないものが出てきたときにだけ足す。</li>
+  <li>秘密情報は <code>.dev.vars</code>（Wrangler のローカル用）か <code>.env</code> に置く。どちらも <code>.gitignore</code> で除外している。共有したい雛形は <code>.example</code> を付けた名前でコミットする。</li>
+  <li><code>.bin/</code> はホストからコンテナ内のツールを呼ぶラッパー置き場。開発環境の一部としてコミットする。</li>
+</ul>
+
+<h2>ファイルの書き方</h2>
+<ul class="list">
+  <li>CSS と JavaScript は、旧サイトと同じく HTML の中に直接書く。</li>
+  <li>色、フォント、余白は <a href="ui/principles.html">UI の基本方針</a>の値を使う。新しい色を足さない。</li>
+  <li>画像を差し替えるときは、ファイル名に日付を入れた新しいファイルを置く（例：<code>cover.20211027.jpg</code>）。同じ名前で上書きすると、ブラウザや CDN のキャッシュに古い画像が残るため。</li>
+</ul>
+
+<h2>ページを更新したら</h2>
+<ol class="list">
+  <li><code>pnpm dev</code> で手元の表示を確かめる</li>
+  <li><code>sitemap.xml</code> の <code>&lt;lastmod&gt;</code> を今日の日付にする</li>
+  <li>診療時間や住所を変えたときは、本文と<a href="glossary.html#jsonld">構造化データ（JSON-LD）</a>の両方を直す</li>
+  <li><code>pnpm run deploy</code> で公開する</li>
+</ol>
+
+<h2>移行中の約束（2026-10-22 の切り替え完了で解除）</h2>
+<p>移行が終わったので、ここに記録した課題は普通のセッションで直してよい。下の2つは、移行のあいだに守っていた約束として残す。</p>
+<ul class="list">
+  <li>移行の作業では、ページの内容を直さない。見つけた誤りは <a href="issues/index.html">課題</a>に記録する。</li>
+  <li>旧サイトと挙動を変えるときは、<a href="glossary.html#intended-diff">意図した差分</a>としてセッションのドキュメントに書く。</li>
+</ul>
+
+<h2>ドキュメント</h2>
+<ul class="list">
+  <li>新しいページは、近い既存ページを複製して作る。<code>&lt;head&gt;</code> とサイドバーの読み込みを揃えるため。</li>
+  <li>ページを足したら <code>docs/sidebar.js</code> の <code>groups</code> に追記する。</li>
+  <li><code>docs/ui/pages/</code> の中で <code>index.html</code> 以外の HTML（例：<code>404/404.html</code>）は成果物そのものなので、サイドバーを入れない。</li>
+</ul>
+
+</main>
+</div>
+<script src="sidebar.js" defer></script>
+</body>
+</html>
