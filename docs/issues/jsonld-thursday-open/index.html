@@ -93,6 +93,11 @@
 <h2>対応の進め方</h2>
 <ol class="list"><li>院に正しい診療日を確認する（本文の「木曜休診」が正しい前提で進めてよいか）</li><li><code>openingHoursSpecification</code> から <code>Thursday</code> の2要素を削除する</li><li>Google のリッチリザルトテストで警告がないことを確かめる</li></ol>
 
+<h2>対応状況</h2>
+<p>2026-10-22、開発者に確認し、本文の「木・土・日曜日および祝日は休診」が正しいとした（手順 1）。</p>
+<p><code>openingHoursSpecification</code> から <code>Thursday</code> の2要素を消した（手順 2）。残りは月・火・水・金の午前と午後の8要素で、<code>openingHours</code> とも揃った。</p>
+<p>Google のリッチリザルトテストでの確認（手順 3）は、デプロイ後に行う。確認できたら完了にする。</p>
+
 <h2>関連</h2>
 <ul class="list">
   <li>見つけたセッション：<a href="../../features/homepage/sessions/20261022-0017-migrate-to-workers/index.html">PHP から Workers へ移行</a></li>
