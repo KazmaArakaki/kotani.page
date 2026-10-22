@@ -38,7 +38,6 @@
       index: { path: "issues/index.html", label: "課題一覧" },
       // done: true にするとサイドバーから消える（課題一覧からは引き続き辿れる）。
       issues: [
-        { path: "issues/jsonld-thursday-open/index.html", label: "JSON-LD で木曜が営業日", priority: "高" },
         { path: "issues/years-in-business-hardcoded/index.html", label: "「２９年目」が固定", priority: "中" },
       ],
     },
