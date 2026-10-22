@@ -39,7 +39,6 @@
       // done: true にするとサイドバーから消える（課題一覧からは引き続き辿れる）。
       issues: [
         { path: "issues/jsonld-thursday-open/index.html", label: "JSON-LD で木曜が営業日", priority: "高" },
-        { path: "issues/og-image-relative-path/index.html", label: "og:image が相対パス", priority: "中" },
         { path: "issues/years-in-business-hardcoded/index.html", label: "「２９年目」が固定", priority: "中" },
       ],
     },

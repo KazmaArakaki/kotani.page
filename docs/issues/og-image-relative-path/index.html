@@ -76,7 +76,7 @@
 
 <p class="eyebrow">ISSUE / 公開中の情報の誤り</p>
 <h1>og:image が相対パスになっている</h1>
-<p class="flex flex-wrap gap-2"><span class="pill" data-v="中">優先度 中</span> <span class="pill" data-v="open">未対応</span></p>
+<p class="flex flex-wrap gap-2"><span class="pill" data-v="中">優先度 中</span> <span class="pill" data-v="done">完了</span></p>
 
 <h2>概要</h2>
 <p><code>og:image</code> と <code>twitter:image</code> の値が <code>/img/ogp.20211027.jpg</code> という相対パスで出力されている。</p>
@@ -91,6 +91,10 @@
 
 <h2>対応の進め方</h2>
 <ol class="list"><li><code>https://kotani.page/img/ogp.20211027.jpg</code> に書き換える</li><li>各 SNS のシェアデバッガーで画像が出ることを確かめる</li></ol>
+
+<h2>対応結果</h2>
+<p>2026-10-22、<code>og:image</code> と <code>twitter:image</code> を <code>https://kotani.page/img/ogp.20211027.jpg</code> に書き換えた（手順 1）。</p>
+<p>デプロイ後、Facebook のシェアデバッガー（<code>https://developers.facebook.com/tools/debug/</code>）で画像が正しく読み取られることを確かめた（手順 2）。LINE の確認用ツールとして案内した PagePoker（<code>poker.line.naver.jp</code>）は名前解決できず、使えなかった。</p>
 
 <h2>関連</h2>
 <ul class="list">
